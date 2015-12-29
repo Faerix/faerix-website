@@ -1,0 +1,17 @@
+{% extends "conv/base.html" %}
+{% block title %}Liste des scénarios proposés{% endblock %}
+{% block content %}
+<div class=container-fluid>
+    <div class=row>
+        <h2>Liste des scénario proposés <button type="button" class="btn btn-primary">Proposer un scénario</button></h2>
+    </div>
+    <div class=row>
+        {% for scenario in scenarios %}
+        <div class="col-xs-12 col-md-6">
+            {% include "conv/scenario.html" %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+        

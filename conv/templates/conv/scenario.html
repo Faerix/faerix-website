@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{scenario.name}}</h3>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">Proposé par : <b>{{scenario.author.username}}</b></li>
+        <li class="list-group-item">Univers : <b>{{ scenario.universe }}</b></li>
+        <li class="list-group-item"><b>{{scenario.min_players}} à {{scenario.max_players}}</b> joueurs</li>
+        <li class="list-group-item">
+        {% if scenario.players.all.count < scenario.max_players %}
+        <b>{{scenario.players.all.count}}</b> incrits.
+        {% else %}
+        Ce scénario est complet.
+        {% endif %}
+        </li>
+        <li class="list-group-item">{{ scenario.description }}</li>
+    </ul>
+</div>

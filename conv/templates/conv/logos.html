@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Sponsors</h3>
+            </div>
+            <div class="panel-body">
+                {% for sponsor in sponsor_logos %}
+                <div class="col-xs-6 col-sm-12">
+                    <div class="thumbnail">
+                        <a href="{{sponsor.url}}"> 
+                            <img src="{{ sponsor.logo.url }}" class="img-responsive img-rounded" alt="Logo de {{sponsor.name}}">
+                            <div class="caption">
+                                <center><label>{{sponsor.name}}</label></center>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -35,7 +35,6 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             new_user = User.objects.create_user(**form.cleaned_data)
-            login(new_user)
             # redirect, or however you want to get to the main view
             return HttpResponseRedirect(reverse("signup_done"))
     else:

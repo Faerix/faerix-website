@@ -1,0 +1,8 @@
+{% extends "conv/base.html" %}
+{% load front_tags %}
+{% block title %}{{ title }}{% endblock title %}
+{% block content %}
+{% front_edit "index_body" request.path %}
+    <div class="alert alert-danger" role="alert"><b>404</b> Cette page n'existe pas encore.</div>
+{% end_front_edit  %}
+{% endblock %}

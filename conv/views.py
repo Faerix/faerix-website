@@ -11,8 +11,11 @@ def render(request, template, **context):
     content = loader.get_template(template)
     return HttpResponse(content.render(context, request))
 
+def get_flat_page_view(title):
+    return lambda request: render(request, "conv/flat_page.html", title=title)
+
 def index(request):
-    return render(request, "conv/news.html", news=[])
+    return render(request, "conv/index.html")
 
 def news(request):
     news = News.objects.filter(visible_from__lte=datetime.datetime.now(), visible_up_to__gte=datetime.datetime.now()).order_by("-visible_from")

@@ -1,3 +1,4 @@
+#encoding: utf8
 """faerix URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -20,17 +21,28 @@ from django.conf.urls.static import static
 
 from conv import views
 
+
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.get_flat_page_view("Les Rencontres Rôlistes de l'X"), name='index'),
     url(r'^scenarios$', views.scenarios, name='scenarios'),
-    url(r'^programme$', views.programme, name='programme'),
     url(r'^subscribe$', views.subscribe, name='subscribe'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^signup/done$', views.signup_done, name='signup_done'),
-    url(r'^infos$', views.infos, name='infos'),
     url(r'^news$', views.news, name='news'),
-    url(r'^contact$', views.contact, name='contact'),
     url(r'^me$', views.contact, name='me'),
     url(r'^admin/', include(admin.site.urls)),
     url('^auth/', include('django.contrib.auth.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    url(r'^front-edit/', include('front.urls')),
+]
+
+flat_pages = {
+        "programme" : "Programme",
+        "contact" : "Contact",
+        "infos" : "Infos Pratiques",
+        }
+
+for name, title in flat_pages.items():
+    urlpatterns.append(url('^'+name+"$", views.get_flat_page_view(title), name=name))
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^signup/done$', views.signup_done, name='signup_done'),
     url(r'^news$', views.news, name='news'),
-    url(r'^me$', views.contact, name='me'),
+    url(r'^me$', views.news, name='me'),
     url(r'^admin/', include(admin.site.urls)),
     url('^auth/', include('django.contrib.auth.urls')),
     url(r'^front-edit/', include('front.urls')),

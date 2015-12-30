@@ -21,8 +21,6 @@ def news(request):
     news = News.objects.filter(visible_from__lte=datetime.datetime.now(), visible_up_to__gte=datetime.datetime.now()).order_by("-visible_from")
     return render(request, "conv/news.html", news=news)
 
-def contact(request):
-    return HttpResponse("Placeholder")
 
 def scenarios(request):
     scenarios = Scenario.objects.filter(validated=True)

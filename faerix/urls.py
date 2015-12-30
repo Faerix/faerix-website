@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^infos$', views.infos, name='infos'),
     url(r'^news$', views.news, name='news'),
     url(r'^contact$', views.contact, name='contact'),
-    url(r'^login$', views.login, name='login'),
+    url(r'^me$', views.contact, name='me'),
     url(r'^admin/', include(admin.site.urls)),
+    url('^auth/', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

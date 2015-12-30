@@ -1,0 +1,19 @@
+{% extends "conv/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<form class="form-horizontal" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+    {% include "conv/auto_form.html" %}
+
+    <div class="form-group">
+        <div class='hidden-xs col-sm-6'></div>
+        <div class='col-xs-12 col-sm-2'>
+            <button class='center-block btn btn-primary' type="submit">Connexion</button>
+            <a type="button" class="center-block btn btn-link btn-sm" href="{% url 'password_reset' %}">Mot de passe oublié</a>
+        </div>
+    </div>
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}

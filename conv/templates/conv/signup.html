@@ -1,0 +1,40 @@
+{% extends "conv/base.html" %}
+
+{% block title %}Créer un compte.{% endblock %}
+
+{% block content %}
+<div class="alert alert-info" role="alert">Pour vous inscrire à un scénario, ou pour en proposer un, <b>nous vous demandons de créer un compte.</b></div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">À propos de vos informations personnelles :</h3>
+    </div>
+    <div class="panel-body">
+        <p>Nous vous demandons une adresse mail et votre identité réelle pour des raisons de sécurité. Les RRX se déroulent au sein d'une enceinte militaire dont l'accès peut être contrôlé. Nous communiquerons donc votre identité aux services de l'École polytechnique de façon à ce qu'ils vous laissent entrer :)<p>
+        <p>Nous nous engageons à ne communiquer votre identité et votre adresse mail qu'à l'équipe d'organisation des RRX et au service de sécurité de l'École polytechnique. <b>Seul votre pseudo (votre nom d'utilisateur) est susceptible d'apparaître sur ce site ou d'être communiqués aux autres participants (MJ etc.)</b><p>
+    </div>
+</div>
+
+<form class="form-horizontal" action="" method="post">{% csrf_token %}
+    {% include "conv/auto_form.html" %}
+    <div class="form-group">
+        <div class='hidden-xs col-sm-2'></div>
+        <div class=' col-xs-12 col-sm-10'>
+            <button type="submit" class="center-block btn btn-primary">Valider</button>
+        </div>
+    </div>
+
+</form>
+<div class="small">
+    <p>Vos informations personnelles font l’objet d’un traitement informatique et sont nécessaires à l'organisation des RRX. En application des articles 39 et suivants de la loi du 6 janvier 1978 modifiée, vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent.
+
+    <p>Si vous souhaitez exercer ce droit et obtenir communication des informations vous concernant, veuillez vous adresser à :
+    <blockquote>
+        Binet Faërix</br>
+        Kes</br>
+        École polytechnique</br>
+        91120 Palaiseau</br>
+        <a href="mailto:conv@faerix.net">conv@faerix.net</a>
+    </blockquote>
+    <p>
+</div>
+{% endblock %}

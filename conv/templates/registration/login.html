@@ -11,6 +11,7 @@
         <div class='col-xs-12 col-sm-2'>
             <button class='center-block btn btn-primary' type="submit">Connexion</button>
             <a type="button" class="center-block btn btn-link btn-sm" href="{% url 'password_reset' %}">Mot de passe oublié</a>
+            <a type="button" class="center-block btn btn-link btn-sm" href="{% url 'signup' %}">Créer un compte</a>
         </div>
     </div>
     <input type="hidden" name="next" value="{{ next }}" />

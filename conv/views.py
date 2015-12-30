@@ -1,9 +1,11 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
+from django.core.urlresolvers import reverse
 import datetime
 import random
 
 from .models import *
+from .forms import *
 
 def render(request, template, **context):
     content = loader.get_template(template)
@@ -25,6 +27,21 @@ def scenarios(request):
     scenarios = Scenario.objects.filter(validated=True)
     return render(request, "conv/scenarios.html", scenarios=scenarios)
 
+def signup(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            new_user = User.objects.create_user(**form.cleaned_data)
+            login(new_user)
+            # redirect, or however you want to get to the main view
+            return HttpResponseRedirect(reverse("signup_done"))
+    else:
+        form = SignUpForm() 
+
+    return render(request, 'conv/signup.html', form=form)
+
+def signup_done(request):
+    return render(request, 'conv/signup_done.html')
 def subscribe(request):
     return HttpResponse("Placeholder")
 

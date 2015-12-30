@@ -1,0 +1,6 @@
+{% extends "conv/base.html" %}
+{% load render %}
+{% block title %}{{ title }}{% endblock%}
+{% block content %}
+<div class="alert alert-{{ type|default:"info" }}" role=alert>{% render_as_template message %}</div>
+{% endblock content %}

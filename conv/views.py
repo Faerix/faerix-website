@@ -15,6 +15,9 @@ def render(request, template, **context):
 def get_flat_page_view(title):
     return lambda request: render(request, "conv/flat_page.html", title=title)
 
+def get_message_view(type, title, message):
+    return lambda request: render(request, "conv/message.html", type=type, title=title, message=message)
+
 def index(request):
     return render(request, "conv/index.html")
 

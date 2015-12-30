@@ -9,8 +9,6 @@ from .forms import *
 
 def render(request, template, **context):
     content = loader.get_template(template)
-    context["sponsor_logos"]=list(Sponsor.objects.filter(active=True))
-    random.shuffle(context["sponsor_logos"])
     return HttpResponse(content.render(context, request))
 
 def index(request):

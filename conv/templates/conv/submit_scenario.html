@@ -1,0 +1,8 @@
+{% extends "conv/base.html" %}
+
+{% block title %}Proposer un scénario{% endblock %}
+{% block content %}
+
+<p>En proposant un scénario, vous vous engagez à fournir le ou les MJ nécessaires à sa réalisation. Si vous avez un scénario mais pas de MJ, ou si inversement vous voulez MJtiser mais n'avez pas de scénario, <a href="{% url "contact" %}">contactez nous</a>.</p>
+{% include "conv/auto_form_button.html" %}
+{% endblock %}

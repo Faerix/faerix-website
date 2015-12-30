@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic.edit import CreateView, UpdateView
 from django.template import loader
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 import datetime
 import random
 
@@ -44,11 +45,13 @@ def signup_done(request):
 def subscribe(request):
     return HttpResponse("Placeholder")
 
-def login(request):
-    return HttpResponse("Placeholder")
-
-def programme(request):
-    return HttpResponse("Placeholder")
-
-def infos(request):
-    return HttpResponse("Placeholder")
+class SubmitScenarioView(CreateView):
+    template_name = "conv/submit_scenario.html"
+    model = Scenario
+    fields = ['name', 'max_players', 'min_players', 'universe', 'description']
+    success_url = reverse_lazy("signup_done")
+    
+    def form_valid(self, form):
+         user = self.request.user
+         form.instance.author = user
+         return super().form_valid(form)

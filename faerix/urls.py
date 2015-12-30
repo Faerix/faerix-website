@@ -21,10 +21,10 @@ from django.conf.urls.static import static
 
 from conv import views
 
-
 urlpatterns = [
     url(r'^$', views.get_flat_page_view("Les Rencontres Rôlistes de l'X"), name='index'),
-    url(r'^scenarios$', views.scenarios, name='scenarios'),
+    url(r'^scenarios/$', views.scenarios, name='scenarios'),
+    url(r'^scenarios/submit$', views.SubmitScenarioView.as_view(), name='submit_scenario'),
     url(r'^subscribe$', views.subscribe, name='subscribe'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^signup/done$', views.signup_done, name='signup_done'),

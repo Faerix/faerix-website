@@ -13,17 +13,7 @@
         <p>Nous nous engageons à ne communiquer votre identité et votre adresse mail qu'à l'équipe d'organisation des RRX et au service de sécurité de l'École polytechnique. <b>Seul votre pseudo (votre nom d'utilisateur) est susceptible d'apparaître sur ce site ou d'être communiqués aux autres participants (MJ etc.)</b><p>
     </div>
 </div>
-
-<form class="form-horizontal" action="" method="post">{% csrf_token %}
-    {% include "conv/auto_form.html" %}
-    <div class="form-group">
-        <div class='hidden-xs col-sm-2'></div>
-        <div class=' col-xs-12 col-sm-10'>
-            <button type="submit" class="center-block btn btn-primary">Valider</button>
-        </div>
-    </div>
-
-</form>
+{% include "conv/form/form.html" %}
 <div class="small">
     <p>Vos informations personnelles font l’objet d’un traitement informatique et sont nécessaires à l'organisation des RRX. En application des articles 39 et suivants de la loi du 6 janvier 1978 modifiée, vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent.
 

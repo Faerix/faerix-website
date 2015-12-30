@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^news$', views.news, name='news'),
     url(r'^me$', views.news, name='me'),
     url(r'^admin/', include(admin.site.urls)),
-    url('^auth/', include('django.contrib.auth.urls')),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^front-edit/', include('front.urls')),
 ]
 

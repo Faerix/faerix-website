@@ -5,6 +5,8 @@ from django.core.urlresolvers import reverse, reverse_lazy
 import datetime
 import random
 
+from braces.views import LoginRequiredMixin
+
 from .models import *
 from .forms import *
 
@@ -45,7 +47,7 @@ def signup(request):
 def subscribe(request):
     return HttpResponse("Placeholder")
 
-class SubmitScenarioView(CreateView):
+class SubmitScenarioView(LoginRequiredMixin, CreateView):
     template_name = "conv/submit_scenario.html"
     model = Scenario
     fields = ['name', 'max_players', 'min_players', 'universe', 'description']

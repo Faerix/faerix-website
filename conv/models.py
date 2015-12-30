@@ -1,10 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 
-class User(AbstractUser):
-    last_visit = models.DateField(auto_now=True)
-
+from .user import User
 
 class Scenario(models.Model):
     name = models.CharField(max_length=200)

@@ -42,8 +42,6 @@ def signup(request):
 
     return render(request, 'conv/signup.html', form=form)
 
-def signup_done(request):
-    return render(request, 'conv/signup_done.html')
 def subscribe(request):
     return HttpResponse("Placeholder")
 

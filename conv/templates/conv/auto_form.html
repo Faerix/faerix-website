@@ -9,7 +9,7 @@
     {% if field.errors %}
     <div class="col-sm-12"><div class="alert alert-danger" role=alert>{{ field.errors }}</div></div>
     {% endif %}
-    <div class='col-xs-6 col-sm-2'>{{ field.label_tag }}</div>
-    <div class='col-xs-12 col-sm-10'>{{ field|add_class:'form-control' }}</div>
+    <div class='col-xs-6 col-sm-3'>{{ field.label_tag }}</div>
+    <div class='col-xs-12 col-sm-9'>{{ field|add_class:'form-control' }}</div>
 </div>
 {% endfor %}

@@ -11,7 +11,7 @@ class Scenario(models.Model):
     universe = models.CharField(max_length=200)
     author = models.ForeignKey("conv.User", related_name="campaigns")
     players = models.ManyToManyField("conv.User")
-    ronde = models.IntegerField(blank=True, choices=((1, 1), (2, 2), (3, 3)))
+    ronde = models.IntegerField(null=True, blank=True, choices=((1, 1), (2, 2), (3, 3)))
     validated = models.BooleanField(default=False)
 
     def __str__(self):

@@ -1,7 +1,10 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import CreateView, UpdateView
+from django.shortcuts import get_object_or_404
 from django.template import loader
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 import datetime
 import random
 
@@ -44,8 +47,18 @@ def signup(request):
 
     return render(request, 'conv/signup.html', form=form)
 
-def subscribe(request):
-    return HttpResponse("Placeholder")
+@login_required(redirect_field_name='src')
+@require_POST
+def subscribe(request, type, pk, action):
+    model = Scenario if type=="scenario" else Event
+    object = get_object_or_404(model, pk=pk)
+    if action=="in":
+        object.players.add(request.user)
+    else:
+        object.players.remove(request.user)
+    return HttpResponseRedirect("{}#{}-{}".format(reverse("scenarios"), type, pk))
+
+    return render(request, 'conv/signup.html', form=form)
 
 class SubmitScenarioView(LoginRequiredMixin, CreateView):
     template_name = "conv/submit_scenario.html"

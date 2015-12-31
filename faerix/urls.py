@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^scenarios/$', views.scenarios, name='scenarios'),
     url(r'^scenarios/submit$', views.SubmitScenarioView.as_view(), name='submit_scenario'),
     url(r'^scenarios/submit/done$', views.get_message_view("success", "Propostion enregistrée", """Votre scénario a bien été enregistré. Il va être validé et affecté à une ronde très prochainement."""), name='submit_scenario_done'),
-    url(r'^subscribe$', views.subscribe, name='subscribe'),
+    url(r'^subscribe/(?P<type>scenario|event)/(?P<pk>\d+)/(?P<action>in|out)$', views.subscribe, name='subscribe'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^signup/done$', views.get_message_view("success", "Compte créé", """Votre compte a été créé avec succès. Pour l'activer et choisir votre mot de passe, passez par le <a class=alert-link href="{% url 'password_reset' %}">formulaire « mot de passe perdu »</a>"""), name='signup_done'),
     url(r'^news$', views.news, name='news'),

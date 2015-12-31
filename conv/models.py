@@ -1,36 +1,57 @@
 from django.db import models
 from django.utils import timezone
+from django.core.exceptions import ValidationError
+from django.conf import settings
 
 from .user import User
 
 class Scenario(models.Model):
-    name = models.CharField(max_length=200)
-    max_players = models.IntegerField(default=6)
-    min_players = models.IntegerField(default=3)
-    description = models.TextField(max_length=10000)
-    universe = models.CharField(max_length=200)
-    author = models.ForeignKey("conv.User", related_name="campaigns")
+    name = models.CharField("Titre", max_length=200)
+    min_players = models.IntegerField("Nombre minimal de PJ")
+    max_players = models.IntegerField("Nombre maximal de PJ")
+    description = models.TextField("Description", max_length=10000)
+    universe = models.CharField("Univers", max_length=200, default="D&D, Appel de Cthulu ou autre...")
+    author = models.ForeignKey("conv.User", related_name="submitted_scenario_set")
     players = models.ManyToManyField("conv.User")
-    ronde = models.IntegerField(null=True, blank=True, choices=((1, 1), (2, 2), (3, 3)))
-    validated = models.BooleanField(default=False)
+    ronde = models.IntegerField("Ronde", null=True, blank=True, choices=((1, 1), (2, 2), (3, 3)))
+    validated = models.BooleanField("Validé", default=False)
+
+    def clean(self):
+        if not (0<self.min_players<=self.max_players<=settings.MAX_N_PLAYERS):
+            raise ValidationError({
+                "min_players":"On doit avoir 0<min_players<=max_players<={}".format(settings.MAX_N_PLAYERS),
+                "max_players":"On doit avoir 0<min_players<=max_players<={}".format(settings.MAX_N_PLAYERS)
+                })
+        if self.validated and not self.ronde:
+            raise ValidationError({"ronde":"Il faut affecter une ronde au scénario avant de le valider"})
 
     def __str__(self):
-        return self.name
+        return self.name + "" if self.validated else "[unvalidated]"
 
 class Event(models.Model):
-    name = models.CharField(max_length=200)
-    max_players = models.IntegerField(default=4)
-    description = models.TextField(max_length=10000)
+    name = models.CharField("Titre", max_length=200)
+    min_players = models.IntegerField("Nombre minimal de PJ", default=4)
+    max_players = models.IntegerField("Nombre maximal de PJ", default=20)
+    description = models.TextField("Description", max_length=10000)
     players = models.ManyToManyField("conv.User")
-    ronde = models.IntegerField(choices=((1, 1), (2, 2), (3, 3)))
+    ronde = models.IntegerField("Ronde", choices=((1, 1), (2, 2), (3, 3)))
+    
+    def clean(self):
+        if not (0<self.min_players<=self.max_players<=settings.MAX_N_PLAYERS):
+            raise ValidationError({
+                "min_players":"On doit avoir 0<min_players<=max_players<={}".format(settings.MAX_N_PLAYERS),
+                "max_players":"On doit avoir 0<min_players<=max_players<={}".format(settings.MAX_N_PLAYERS)
+                })
+
+
     def __str__(self):
         return self.name
 
 class Sponsor(models.Model):
-    name = models.CharField(max_length=200)
-    url = models.URLField(max_length=200)
-    logo = models.ImageField()
-    active = models.BooleanField(default=True)
+    name = models.CharField("Nom affiché", max_length=200)
+    url = models.URLField("Site Web", max_length=200)
+    logo = models.ImageField("Image à afficher")
+    active = models.BooleanField("Affichable", default=True)
     def __str__(self):
         return self.name
 
@@ -38,9 +59,14 @@ class News(models.Model):
     class Meta:
         verbose_name="News Item"
         verbose_name_plural="News"
-    name = models.CharField(max_length=200)
-    description = models.TextField(max_length=10000)
-    visible_from = models.DateTimeField(default=timezone.now)
-    visible_up_to = models.DateTimeField(default=timezone.now)
+    name = models.CharField("Titre", max_length=200)
+    description = models.TextField("Texte", max_length=10000)
+    visible_from = models.DateTimeField("Visible à partir de", default=timezone.now)
+    visible_up_to = models.DateTimeField("Visible jusqu'à", default=timezone.now)
+
+    def clean(self):
+        if not self.visible_from < self.visible_up_to:
+            raise ValidationError("La date de début doit précéder la date de fin :)")
+
     def __str__(self):
         return self.name

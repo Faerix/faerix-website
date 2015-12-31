@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import get_object_or_404
 from django.template import loader
@@ -52,6 +52,8 @@ def signup(request):
 def subscribe(request, type, pk, action):
     model = Scenario if type=="scenario" else Event
     object = get_object_or_404(model, pk=pk)
+    if request.user.is_busy_at_ronde(object.ronde):
+        return HttpResponseForbidden("User already busy at ronde {}".format(object.ronde))
     if action=="in":
         object.players.add(request.user)
     else:

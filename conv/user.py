@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserM
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.core import validators
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.utils.translation import ugettext_lazy as _
@@ -77,6 +78,33 @@ class User(AbstractBaseUser, PermissionsMixin):
         Sends an email to this User.
         """
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    ###### custom methods
+
+    def get_activity_at_ronde(self, ronde):
+        """
+        Returns what this user will do during the given ronde, either :
+            ("", None)
+            ("submitted_scenario", <Scenario whose author is self>)
+            ("scenario", <Scenario the user participates to>)
+            ("event", <Event the user participates to>)
+        If the user is going to participate to several activities at the same time, raises ValidationError.
+        """
+        n = 0
+        type = ""
+        object = None
+        for attr in ("submitted_scenario", "scenario", "event"):
+            queryset = list(getattr(self, attr+"_set").filter(ronde=ronde))
+            n += len(queryset)
+            if n>1:
+                raise ValidationError("L'utilisateur «{}» participe à plusieurs activités à la ronde {}".format(self, ronde))
+            if len(queryset)==1:
+                type = attr
+                object = queryset[0]
+        return type, object
+
+    def is_busy_at_ronde(self, ronde):
+        return bool(self.get_activity_at_ronde(ronde)[0])
 
 # Un hack : 
 def get_users(self, email):

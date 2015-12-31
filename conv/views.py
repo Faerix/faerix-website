@@ -30,7 +30,6 @@ def news(request):
     news = News.objects.filter(visible_from__lte=timezone.now(), visible_up_to__gte=timezone.now()).order_by("-visible_from")
     return render(request, "conv/news.html", news=news)
 
-
 def ronde(request, ronde):
     ronde = int(ronde)
     scenarios = Scenario.objects.filter(ronde=ronde, validated=True)
@@ -76,7 +75,7 @@ class SubmitScenarioView(LoginRequiredMixin, CreateView):
     template_name = "conv/submit_scenario.html"
     model = Scenario
     fields = ['name', 'max_players', 'min_players', 'universe', 'description']
-    success_url = reverse_lazy("signup_done")
+    success_url = reverse_lazy("submit_scenario_done")
     
     def form_valid(self, form):
          user = self.request.user

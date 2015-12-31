@@ -31,9 +31,19 @@ def news(request):
     return render(request, "conv/news.html", news=news)
 
 
-def scenarios(request):
-    scenarios = Scenario.objects.filter(validated=True)
-    return render(request, "conv/scenarios.html", scenarios=scenarios)
+def ronde(request, ronde):
+    ronde = int(ronde)
+    scenarios = Scenario.objects.filter(ronde=ronde, validated=True)
+    events = Event.objects.filter(ronde=ronde)
+    if request.user.is_authenticated():
+        type, activity = request.user.get_activity_at_ronde(ronde)
+    else:
+        type, activity = "", None
+    if type.endswith("scenario"):
+        scenarios = scenarios.exclude(pk=activity.pk)
+    if type.endswith("event"):
+        events = events.exclude(pk=activity.pk)
+    return render(request, "conv/ronde.html", ronde=ronde, scenarios=scenarios, events=events, busy=bool(type), type=type, activity=activity)
 
 def signup(request):
     if request.method == "POST":
@@ -52,13 +62,13 @@ def signup(request):
 def subscribe(request, type, pk, action):
     model = Scenario if type=="scenario" else Event
     object = get_object_or_404(model, pk=pk)
-    if request.user.is_busy_at_ronde(object.ronde):
+    if action=="in" and request.user.is_busy_at_ronde(object.ronde):
         return HttpResponseForbidden("User already busy at ronde {}".format(object.ronde))
     if action=="in":
         object.players.add(request.user)
     else:
         object.players.remove(request.user)
-    return HttpResponseRedirect("{}#{}-{}".format(reverse("scenarios"), type, pk))
+    return HttpResponseRedirect(reverse("ronde", args=(object.ronde,)))
 
     return render(request, 'conv/signup.html', form=form)
 

@@ -1,0 +1,36 @@
+{# context: event, busy #}
+<div class="panel panel-default" id="event-{{event.pk}}">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{event.name}}</h3>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">
+        <b>{{event.min_players}} à {{event.max_players}}</b> joueurs
+            {% if event.players.all.count < event.max_players %}
+                ; <b>{{event.players.all.count}}</b> incrits.
+            {% else %}
+                : <b>complet</b>.
+            {% endif %}
+            {% if request.user in event.players.all %}
+                <b>Je suis inscrit !</b>
+            <form style="display:inline-block; float: right;" method=post action="{% url "subscribe" "event" event.pk "out" %}">
+                {% csrf_token %}
+                <button class="btn btn-warning btn-xs" type=submit>Me désinscrire</button>
+            </form>
+            {% elif not busy %}
+            <form class="form-inline" style="display:inline-block; float: right;" method=post action="{% url "subscribe" "event" event.pk "in" %}">
+                {% csrf_token %}
+                <button class="btn btn-success btn-xs" type=submit>M'inscrire</button>
+            </form>
+            {% endif %}
+            {% if request.user.is_staff %}
+            <br/>Participants :<br/><ol>
+                {% for player in event.players.all %}
+                <li>{{player.username}}</li>
+                {% endfor %}
+            </ol>
+            {% endif %}
+        </li>
+        <li class="list-group-item">{{ event.description }}</li>
+    </ul>
+</div>

@@ -1,3 +1,4 @@
+{# context: scenario, busy #}
 <div class="panel panel-default" id="scenario-{{scenario.pk}}">
     <div class="panel-heading">
         <h3 class="panel-title">{{scenario.name}}</h3>
@@ -24,7 +25,7 @@
                     <li>{{player.username}}</li>
                     {% endfor %}
                 </ol>
-            {% else %}
+            {% elif not busy %}
             <form class="form-inline" style="display:inline-block; float: right;" method=post action="{% url "subscribe" "scenario" scenario.pk "in" %}">
                 {% csrf_token %}
                 <button class="btn btn-success btn-xs" type=submit>M'inscrire</button>

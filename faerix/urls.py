@@ -23,7 +23,7 @@ from conv import views
 
 urlpatterns = [
     url(r'^$', views.get_flat_page_view("Les Rencontres Rôlistes de l'X"), name='index'),
-    url(r'^scenarios/$', views.scenarios, name='scenarios'),
+    url(r'^ronde/(?P<ronde>\d)$', views.ronde, name='ronde'),
     url(r'^scenarios/submit$', views.SubmitScenarioView.as_view(), name='submit_scenario'),
     url(r'^scenarios/submit/done$', views.get_message_view("success", "Propostion enregistrée", """Votre scénario a bien été enregistré. Il va être validé et affecté à une ronde très prochainement."""), name='submit_scenario_done'),
     url(r'^subscribe/(?P<type>scenario|event)/(?P<pk>\d+)/(?P<action>in|out)$', views.subscribe, name='subscribe'),

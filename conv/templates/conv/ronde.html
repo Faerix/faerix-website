@@ -1,0 +1,51 @@
+{% extends "conv/base.html" %}
+{% block title %}Liste des scénarios proposés{% endblock %}
+{% block content %}
+<div class=container-fluid>
+    <div class=row>
+        <div class=container-fluid>
+            <h2>Liste des scénarios proposés <a type="button" style="float:right" class="btn btn-primary" href="{% url "submit_scenario" %}">Proposer un scénario</a></h2>
+        </div>
+    </div>
+    <div class=row>
+        <div class=container-fluid>
+            <ul class="nav nav-tabs nav-justified">
+                <li role="presentation"{% if ronde == 1 %} class="active"{% endif%}><a href='{% url "ronde" 1 %}'>Ronde 1</a></li>
+                <li role="presentation"{% if ronde == 2 %} class="active"{% endif%}><a href='{% url "ronde" 2 %}'>Ronde 2</a></li>
+                <li role="presentation"{% if ronde == 3 %} class="active"{% endif%}><a href='{% url "ronde" 3 %}'>Ronde 3</a></li>
+            </ul>
+        </div>
+    </div>
+    {% if ronde < 1 or ronde > 3 %}
+    <div class=row>
+        <div class=container-fluid>
+            <div class="alert alert-info" role=alert>Utilisez les onglets ci-dessus pour voir les scénarios proposés lors d'une des trois rondes.</div>
+        </div>
+    </div>
+    {% endif %}
+    {% if busy %}
+    <div class=row>
+        <div class=container-fluid>
+            {% if type == "scenario" or type == "submitted_scenario" %}
+            {% include "conv/scenario.html" with scenario=activity %}
+            {% else %}
+            {% include "conv/event.html" with event=activity %}
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    <div class=row>
+        {% for event in events %}
+        <div class="col-xs-12 col-md-6">
+            {% include "conv/event.html" %}
+        </div>
+        {% endfor %}
+        {% for scenario in scenarios %}
+        <div class="col-xs-12 col-md-6">
+            {% include "conv/scenario.html" %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+

@@ -45,5 +45,6 @@ flat_pages = {
 for name, title in flat_pages.items():
     urlpatterns.append(url('^'+name+"$", views.get_flat_page_view(title), name=name))
 
-
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

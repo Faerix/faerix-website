@@ -3,3 +3,4 @@ uploads
 *.pyc*
 **/__pycache__
 *.swp
+/static/

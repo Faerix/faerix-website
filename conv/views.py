@@ -5,7 +5,7 @@ from django.template import loader
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-import datetime
+from django.utils import timezone
 import random
 
 from braces.views import LoginRequiredMixin
@@ -27,7 +27,7 @@ def index(request):
     return render(request, "conv/index.html")
 
 def news(request):
-    news = News.objects.filter(visible_from__lte=datetime.datetime.now(), visible_up_to__gte=datetime.datetime.now()).order_by("-visible_from")
+    news = News.objects.filter(visible_from__lte=timezone.now(), visible_up_to__gte=timezone.now()).order_by("-visible_from")
     return render(request, "conv/news.html", news=news)
 
 

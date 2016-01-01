@@ -4,3 +4,4 @@ uploads
 **/__pycache__
 *.swp
 /static/
+/venv/

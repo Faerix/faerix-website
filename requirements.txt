@@ -1,0 +1,8 @@
+Django==1.8.3
+django-braces==1.8.1
+django-compat==1.0.8
+django-front==0.5.1
+django-hijack==2.0.1
+django-widget-tweaks==1.4.1
+Pillow==2.3.0
+

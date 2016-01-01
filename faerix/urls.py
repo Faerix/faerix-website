@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^signup/done$', views.get_message_view("success", "Compte créé", """Votre compte a été créé avec succès. Pour l'activer et choisir votre mot de passe, passez par le <a class=alert-link href="{% url 'password_reset' %}">formulaire « mot de passe perdu »</a>"""), name='signup_done'),
     url(r'^news$', views.news, name='news'),
-    url(r'^me$', views.news, name='me'),
+    url(r'^me$', views.get_message_view("danger", "Mon profil", """Cette fonctionnalité n'est pas encore disponible :("""), name='me'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^front-edit/', include('front.urls')),

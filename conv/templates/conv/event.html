@@ -1,7 +1,7 @@
 {# context: event, busy #}
 <div class="panel panel-default" id="event-{{event.pk}}">
     <div class="panel-heading">
-        <h3 class="panel-title">{{event.name}}</h3>
+        <h3 class="panel-title">{% if request.user in event.players.all %}<span class="label label-success">Je suis inscrit à :</span> {% endif %}{{event.name}}</h3>
     </div>
     <ul class="list-group">
         <li class="list-group-item">
@@ -12,7 +12,7 @@
                 : <b>complet</b>.
             {% endif %}
             {% if request.user in event.players.all %}
-                <b>Je suis inscrit !</b>
+                <b>J'en fais partie !</b>
             <form style="display:inline-block; float: right;" method=post action="{% url "subscribe" "event" event.pk "out" %}">
                 {% csrf_token %}
                 <button class="btn btn-warning btn-xs" type=submit>Me désinscrire</button>

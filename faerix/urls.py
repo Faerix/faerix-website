@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^front-edit/', include('front.urls')),
+    url(r'^hijack/', include('hijack.urls')),
 ]
 
 flat_pages = {

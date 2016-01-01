@@ -45,6 +45,8 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'front',
     'braces',
+    'hijack',
+    'compat', # for hijack
 )
 
 MIDDLEWARE_CLASSES = (
@@ -116,6 +118,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads/")
 
 MEDIA_URL = '/media/'
+
+HIJACK_LOGIN_REDIRECT_URL = '/'  # Where admins are redirected to after hijacking a user
+HIJACK_LOGOUT_REDIRECT_URL = '/admin/conv/user/'  # Where admins are redirected to after releasing a user
+HIJACK_USE_BOOTSTRAP = True
+HIJACK_AUTHORIZE_STAFF = True
+HIJACK_AUTHORIZE_STAFF_TO_HIJACK_STAFF = True
 
 #################################################
 

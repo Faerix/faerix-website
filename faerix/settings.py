@@ -128,3 +128,4 @@ HIJACK_AUTHORIZE_STAFF_TO_HIJACK_STAFF = True
 #################################################
 
 MAX_N_PLAYERS = 99
+DEFAULT_FROM_EMAIL = "no-reply@faerix.net"

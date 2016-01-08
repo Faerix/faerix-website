@@ -1,5 +1,5 @@
 db.sqlite3
-uploads
+/media/
 *.pyc*
 **/__pycache__
 *.swp

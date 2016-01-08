@@ -51,11 +51,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     last_visit = models.DateField(auto_now=True)
+    phone = models.CharField(
+        "Numéro de téléphone",
+        max_length=20,
+        help_text="Numéro de téléphone au format « 0612345678 »",
+        validators=[
+            validators.RegexValidator(
+                r'\d\d ?\d\d ?\d\d ?\d\d ?\d\d',
+                _('Entrez un numéro de téléphone valide de la forme 0612345678')
+            ),
+        ],
+    )
 
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'phone']
 
     class Meta:
         verbose_name = _('user')

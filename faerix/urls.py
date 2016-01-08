@@ -21,6 +21,12 @@ from django.conf.urls.static import static
 
 from conv import views
 
+
+handler404 = views.get_message_view("danger", "404", """<b>404</b> Cette page n'existe pas.""", status=404)
+handler500 = views.get_message_view("danger", "500", """<b>500</b> Une erreur est survenue en traitant votre demande. Réessayez ultérieurement.""", status=500)
+handler403 = views.get_message_view("danger", "403", """<b>403</b> Accès refusé""", status=403)
+handler400 = views.get_message_view("danger", "400", """<b>400</b> Votre navigateur a fait une requête incompréhensible. Désolé.""", status=400)
+
 urlpatterns = [
     url(r'^$', views.get_flat_page_view("Les Rencontres Rôlistes de l'X"), name='index'),
     url(r'^ronde/(?P<ronde>\d)$', views.ronde, name='ronde'),

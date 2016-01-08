@@ -13,15 +13,17 @@ from braces.views import LoginRequiredMixin
 from .models import *
 from .forms import *
 
-def render(request, template, **context):
+def render(request, template, status=200, **context):
     content = loader.get_template(template)
-    return HttpResponse(content.render(context, request))
+    response = HttpResponse(content.render(context, request))
+    response.status_code = status
+    return response
 
 def get_flat_page_view(title):
     return lambda request: render(request, "conv/flat_page.html", title=title)
 
-def get_message_view(type, title, message):
-    return lambda request: render(request, "conv/message.html", type=type, title=title, message=message)
+def get_message_view(type, title, message, status=200):
+    return lambda request: render(request, "conv/message.html", status=status, type=type, title=title, message=message)
 
 def index(request):
     return render(request, "conv/index.html")

@@ -8,5 +8,5 @@ après avoir éventuellement réglé le proxy dans le Makefile.
 
 Pour lancer le serveur de test sur 0.0.0.0:8000 : 
 ```
-make runserver
+DJANGO_DEBUG=True make runserver
 ```

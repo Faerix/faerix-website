@@ -5,3 +5,5 @@ db.sqlite3
 *.swp
 /static/
 /venv/
+my.cnf
+secret_key.txt

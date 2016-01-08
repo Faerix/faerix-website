@@ -1,3 +1,4 @@
+#encoding: utf8
 """
 Django settings for faerix project.
 
@@ -128,4 +129,6 @@ HIJACK_AUTHORIZE_STAFF_TO_HIJACK_STAFF = True
 #################################################
 
 MAX_N_PLAYERS = 99
-DEFAULT_FROM_EMAIL = "no-reply@faerix.net"
+DEFAULT_FROM_EMAIL = "conv@faerix.net"
+SERVER_EMAIL = "webmaster@faerix.net" # redirige sur info@faerix.polytechnique.org
+ADMINS = [("Webmaster Faërix", "webmaster@faerix.net")]

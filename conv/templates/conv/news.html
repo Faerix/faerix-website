@@ -4,10 +4,10 @@
 {% for item in news %}
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">{{ item.name }}</h3>
+        <h3 class="panel-title">{{ item.name|safe }}</h3>
     </div>
     <div class="panel-body">
-        {{item.description}}
+        {{item.description|safe}}
     </div>
 </div>
 {% empty %}

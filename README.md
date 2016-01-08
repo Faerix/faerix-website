@@ -6,7 +6,7 @@ make install
 ```
 après avoir éventuellement réglé le proxy dans le Makefile.
 
-Pour lancer le serveur de test sur 0.0.0.0:8080 : 
+Pour lancer le serveur de test sur 0.0.0.0:8000 : 
 ```
 make runserver
 ```

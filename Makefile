@@ -5,11 +5,14 @@
 venv:
 	virtualenv --python=python3 venv
 
-depends: venv requirements.txt
+secret_key.txt:
+	cat /dev/urandom | tr -d -c "[a-zA-Z0-9]" | head -c 50 > secret_key.txt
+
+depends: venv
 	. venv/bin/activate; \
 	pip3 install -r requirements.txt $(proxy)
 
-install: depends conv/migrations
+install: depends secret_key.txt
 	. venv/bin/activate; \
 	python3 manage.py collectstatic --noinput; \
 	python3 manage.py migrate

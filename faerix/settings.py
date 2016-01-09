@@ -30,7 +30,7 @@ DEBUG = bool(os.environ.get("DJANGO_DEBUG", ""))
 if DEBUG:
     print("Warning:  debug mode !", file=sys.stderr)
 
-ALLOWED_HOSTS = ["faerix.next.bin"]
+ALLOWED_HOSTS = ["faerix.next.binets.fr", "faerix.next.bin"]
 
 AUTH_USER_MODEL = 'conv.User'
 

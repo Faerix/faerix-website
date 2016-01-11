@@ -13,7 +13,7 @@ class Scenario(models.Model):
     universe = models.CharField("Univers", max_length=200, default="D&D, Appel de Cthulu ou autre...")
     author = models.ForeignKey("conv.User", related_name="submitted_scenario_set")
     players = models.ManyToManyField("conv.User", blank=True)
-    ronde = models.IntegerField("Ronde", null=True, blank=True, choices=((1, 1), (2, 2), (3, 3)))
+    ronde = models.IntegerField("Ronde", choices=((1, 1), (2, 2), (3, 3)))
     validated = models.BooleanField("Validé", default=False)
 
     def clean(self):

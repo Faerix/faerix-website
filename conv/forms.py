@@ -28,5 +28,6 @@ class CheckingScenarioForm(ModelForm):
         super().clean()
         for player in self.cleaned_data.get("players"):
             player.get_activity_at_ronde(self.cleaned_data.get("ronde"))
+        self.cleaned_data.get("author").get_activity_at_ronde(self.cleaned_data.get("ronde"))
         return self.cleaned_data
 

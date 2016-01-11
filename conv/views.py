@@ -64,7 +64,7 @@ def subscribe(request, type, pk, action):
     model = Scenario if type=="scenario" else Event
     object = get_object_or_404(model, pk=pk)
     if action=="in" and request.user.is_busy_at_ronde(object.ronde):
-        return HttpResponseForbidden("User already busy at ronde {}".format(object.ronde))
+        return get_message_view("danger", "Ubiquité", "Vous participez déjà à un scénario pour cette ronde !", 403)(self.request)
     if action=="in":
         object.players.add(request.user)
     else:
@@ -81,5 +81,7 @@ class SubmitScenarioView(LoginRequiredMixin, CreateView):
     
     def form_valid(self, form):
          user = self.request.user
+         if user.is_busy_at_ronde(form.instance.ronde):
+            return get_message_view("danger", "Ubiquité", "Vous participez déjà à un scénario pour cette ronde !", 403)(self.request)
          form.instance.author = user
          return super().form_valid(form)

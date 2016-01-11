@@ -76,7 +76,7 @@ def subscribe(request, type, pk, action):
 class SubmitScenarioView(LoginRequiredMixin, CreateView):
     template_name = "conv/submit_scenario.html"
     model = Scenario
-    fields = ['name', 'max_players', 'min_players', 'universe', 'description', 'ronde']
+    fields = ['name', 'max_players', 'min_players', 'system', 'description', 'ronde']
     success_url = reverse_lazy("submit_scenario_done")
     
     def form_valid(self, form):

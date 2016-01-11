@@ -10,7 +10,7 @@ class Scenario(models.Model):
     min_players = models.IntegerField("Nombre minimal de PJ")
     max_players = models.IntegerField("Nombre maximal de PJ")
     description = models.TextField("Description", max_length=10000)
-    universe = models.CharField("Univers", max_length=200, default="D&D, Appel de Cthulu ou autre...")
+    system = models.CharField("Système", max_length=200, default="D&D, Appel de Cthulu ou autre...")
     author = models.ForeignKey("conv.User", related_name="submitted_scenario_set")
     players = models.ManyToManyField("conv.User", blank=True)
     ronde = models.IntegerField("Ronde", choices=((1, 1), (2, 2), (3, 3)))

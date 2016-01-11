@@ -14,7 +14,7 @@
     <title>RRX : {% block title %}les Rencontres Rôlistes de l'X{% endblock %}</title>
 
     <!-- Bootstrap -->
-    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "css/bootstrap.dark.min.css" %}" rel="stylesheet">
   </head>
   <body>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -22,11 +22,16 @@
     <script src="{% static "js/bootstrap.min.js" %}"></script>
     {% hijack_notification %}
     {% include "conv/navbar.html" %}
+
+    <img src="{% static "images/affiche.jpg" %}" style="position: absolute; width:100%; top: 0; z-index:-1;"/>
+
     <div class=container-fluid>
         <div class=row>
             <div class='col-md-9 col-lg-10'>
+                <div style="color: #FFF; background-color: rgba(17, 17, 17, 0.48); border-radius: 20px; padding: 15px;">
                 {% block content %}
                 {% endblock %}
+                </div>
             </div>
             <div class='col-sm-12 col-md-3 col-lg-2 center-block'>
                 {% include 'conv/logos.html' %}

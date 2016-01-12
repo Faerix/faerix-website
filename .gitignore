@@ -1,9 +1,8 @@
 db.sqlite3
-/media/
+/assets/
 *.pyc*
 **/__pycache__
 *.swp
-/static/
 /venv/
 my.cnf
 secret_key.txt

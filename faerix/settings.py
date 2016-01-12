@@ -75,6 +75,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'conv.context_processors.inject_sponsors',
+                'conv.context_processors.inject_news_count',
 
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',

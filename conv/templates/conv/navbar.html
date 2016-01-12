@@ -14,7 +14,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id=navbar-content>
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href="{% url 'news' %}">Annonces</a></li>
+                    <li><a href="{% url 'news' %}">Annonces{% if news_count > 0 %} <span class="badge">{{ news_count }}</span>{% endif %}</a></li>
                     <li><a href="{% url 'programme' %}">Programme</a></li>
                     <li><a href="{% url 'ronde' 0 %}">Scenarios</a></li>
                     <li><a href="{% url 'infos' %}">Infos Pratiques</a></li>

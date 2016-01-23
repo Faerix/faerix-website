@@ -19,17 +19,18 @@
                 {% csrf_token %}
                 <button class="btn btn-warning btn-xs" type=submit>Me désinscrire</button>
             </form>
-            {% elif request.user == scenario.author %}
-                <br/>Participants :<br/><ol>
-                    {% for player in scenario.players.all %}
-                    <li>{{player.username}}</li>
-                    {% endfor %}
-                </ol>
             {% elif not busy %}
             <form class="form-inline" style="display:inline-block; float: right;" method=post action="{% url "subscribe" "scenario" scenario.pk "in" %}">
                 {% csrf_token %}
                 <button class="btn btn-success btn-xs" type=submit>M'inscrire</button>
             </form>
+            {% endif %}
+            {% if scenario.players.all.count > 0 and request.user.is_authenticated %}
+                <br/>Participants :<br/><ol>
+                    {% for player in scenario.players.all %}
+                    <li>{{player.username}}</li>
+                    {% endfor %}
+                </ol>
             {% endif %}
         </li>
         <li class="list-group-item">{{ scenario.description }}</li>

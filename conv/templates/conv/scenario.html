@@ -5,7 +5,7 @@
     </div>
     <ul class="list-group">
         <li class="list-group-item">Proposé par : <b>{{scenario.author.username}}</b></li>
-        <li class="list-group-item">Système : <b>{{ scenario.universe }}</b></li>
+        <li class="list-group-item">Système : <b>{{ scenario.system }}</b></li>
         <li class="list-group-item">
         <b>{{scenario.min_players}} à {{scenario.max_players}}</b> joueurs
             {% if scenario.players.all.count < scenario.max_players %}

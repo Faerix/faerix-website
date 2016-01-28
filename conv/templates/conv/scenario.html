@@ -9,7 +9,7 @@
         <li class="list-group-item">
         <b>{{scenario.min_players}} à {{scenario.max_players}}</b> joueurs
             {% if scenario.players.all.count < scenario.max_players %}
-                ; <b>{{scenario.players.all.count}}</b> incrits.
+                ; <b>{{scenario.players.all.count}}</b> inscrits.
             {% else %}
                 : <b>complet</b>.
             {% endif %}

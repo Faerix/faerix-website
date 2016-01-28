@@ -23,7 +23,7 @@
                 <button class="btn btn-success btn-xs" type=submit>M'inscrire</button>
             </form>
             {% endif %}
-            {% if request.user.is_staff %}
+            {% if event.players.all.count > 0 and request.user.is_authenticated %}
             <br/>Participants :<br/><ol>
                 {% for player in event.players.all %}
                 <li>{{player.username}}</li>

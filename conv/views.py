@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.utils import timezone
+from django.core.mail import send_mail
 import random
 
 from braces.views import LoginRequiredMixin
@@ -86,4 +87,11 @@ class SubmitScenarioView(LoginRequiredMixin, CreateView):
          if user.is_busy_at_ronde(form.instance.ronde):
             return get_message_view("danger", "Ubiquité", "Vous participez déjà à un scénario pour cette ronde !", 403)(self.request)
          form.instance.author = user
+         send_mail(
+                 "Scenario à valider",
+                 "Un internaute a soumis un scénario intitulé « {} ».\n Rendez vous sur l'interface d'administration : http://www.faerix.net/admin/conv/scenario/.\nCe mail est automatique.".format(form.instance.name),
+                 "",
+                 list(map(lambda u: u.email, User.objects.filter(is_staff=True))),
+                 fail_silently=True
+                 )
          return super().form_valid(form)

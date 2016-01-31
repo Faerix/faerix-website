@@ -30,7 +30,7 @@ class Scenario(models.Model):
             raise ValidationError({"ronde":"Il faut affecter une ronde au scénario avant de le valider"})
 
     def __str__(self):
-        return self.name + "" if self.validated else "[unvalidated]"
+        return self.name + ("" if self.validated else "[unvalidated]")
 
 class Event(models.Model):
     name = models.CharField("Titre", max_length=200)

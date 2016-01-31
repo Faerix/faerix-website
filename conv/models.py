@@ -13,7 +13,7 @@ class Scenario(models.Model):
     system = models.CharField("Système", max_length=200, default="D&D, Appel de Cthulu ou autre...")
     author = models.ForeignKey("conv.User", related_name="submitted_scenario_set")
     players = models.ManyToManyField("conv.User", blank=True)
-    ronde = models.IntegerField("Ronde", choices=((1, 1), (2, 2), (3, 3)))
+    ronde = models.IntegerField("Ronde", choices=((1, "1 : Samedi 14h−20h"), (2, "2 : Samedi à partir de 20h"), (3, "3 : Dimanche 10h-16h")))
     validated = models.BooleanField("Validé", default=False)
 
     @property
@@ -38,7 +38,7 @@ class Event(models.Model):
     max_players = models.IntegerField("Nombre maximal de PJ", default=20)
     description = models.TextField("Description", max_length=10000)
     players = models.ManyToManyField("conv.User", blank=True)
-    ronde = models.IntegerField("Ronde", choices=((1, 1), (2, 2), (3, 3)))
+    ronde = models.IntegerField("Ronde", choices=((1, "1 : Samedi 14h−20h"), (2, "2 : Samedi à partir de 20h"), (3, "3 : Dimanche 10h-16h")))
     
     @property
     def complet(self):

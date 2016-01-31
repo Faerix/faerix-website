@@ -64,7 +64,9 @@ def subscribe(request, type, pk, action):
     model = Scenario if type=="scenario" else Event
     object = get_object_or_404(model, pk=pk)
     if action=="in" and request.user.is_busy_at_ronde(object.ronde):
-        return get_message_view("danger", "Ubiquité", "Vous participez déjà à un scénario pour cette ronde !", 403)(self.request)
+        return get_message_view("danger", "Ubiquité", "Vous participez déjà à un scénario pour cette ronde !", 403)(request)
+    if action=="in" and object.complet:
+        return get_message_view("danger", "Capacité maximale", "Ce scénario est complet", 403)(request)
     if action=="in":
         object.players.add(request.user)
     else:

@@ -16,6 +16,10 @@ class Scenario(models.Model):
     ronde = models.IntegerField("Ronde", choices=((1, 1), (2, 2), (3, 3)))
     validated = models.BooleanField("Validé", default=False)
 
+    @property
+    def complet(self):
+        return self.players.count()>=self.max_players
+
     def clean(self):
         if not (0<self.min_players<=self.max_players<=settings.MAX_N_PLAYERS):
             raise ValidationError({
@@ -36,6 +40,10 @@ class Event(models.Model):
     players = models.ManyToManyField("conv.User", blank=True)
     ronde = models.IntegerField("Ronde", choices=((1, 1), (2, 2), (3, 3)))
     
+    @property
+    def complet(self):
+        return self.players.count()>=self.max_players
+
     def clean(self):
         if not (0<self.min_players<=self.max_players<=settings.MAX_N_PLAYERS):
             raise ValidationError({

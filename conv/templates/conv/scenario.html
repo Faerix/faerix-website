@@ -8,10 +8,10 @@
         <li class="list-group-item">Système : <b>{{ scenario.system }}</b></li>
         <li class="list-group-item">
         <b>{{scenario.min_players}} à {{scenario.max_players}}</b> joueurs
-            {% if scenario.players.all.count < scenario.max_players %}
-                ; <b>{{scenario.players.all.count}}</b> inscrits.
+            {% if scenario.complet %}
+            : <b>complet</b>.
             {% else %}
-                : <b>complet</b>.
+            ; <b>{{scenario.players.all.count}}</b> inscrits.
             {% endif %}
             {% if request.user in scenario.players.all %}
                 <b>J'en fais partie !</b>
@@ -19,7 +19,7 @@
                 {% csrf_token %}
                 <button class="btn btn-warning btn-xs" type=submit>Me désinscrire</button>
             </form>
-            {% elif not busy %}
+            {% elif not busy and not scenario.complet %}
             <form class="form-inline" style="display:inline-block; float: right;" method=post action="{% url "subscribe" "scenario" scenario.pk "in" %}">
                 {% csrf_token %}
                 <button class="btn btn-success btn-xs" type=submit>M'inscrire</button>

@@ -6,10 +6,10 @@
     <ul class="list-group">
         <li class="list-group-item">
         <b>{{event.min_players}} à {{event.max_players}}</b> joueurs
-            {% if event.players.all.count < event.max_players %}
-                ; <b>{{event.players.all.count}}</b> incrits.
+            {% if event.complet %}
+            : <b>complet</b>.
             {% else %}
-                : <b>complet</b>.
+            ; <b>{{event.players.all.count}}</b> incrits.
             {% endif %}
             {% if request.user in event.players.all %}
                 <b>J'en fais partie !</b>
@@ -17,7 +17,7 @@
                 {% csrf_token %}
                 <button class="btn btn-warning btn-xs" type=submit>Me désinscrire</button>
             </form>
-            {% elif not busy %}
+            {% elif not busy and not event.complet %}
             <form class="form-inline" style="display:inline-block; float: right;" method=post action="{% url "subscribe" "event" event.pk "in" %}">
                 {% csrf_token %}
                 <button class="btn btn-success btn-xs" type=submit>M'inscrire</button>

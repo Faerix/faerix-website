@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang=fr>
+<head>
+    <title>RRX: Liste des tables par ronde</title>
+    <style>
+td {
+    vertical-align: top;
+    border: solid 1px;
+}
+    </style>
+</head>
+<body>
+<h1>Liste des tables de jeu par ronde</h1>
+{% for ronde, content in tables.items %}
+{% for event in content.event %}
+<h2 style="page-break-before: always">{{event.name}}</h2>
+<table >
+    <tr><td>Ronde:</td><td>{{event.ronde}}</td></tr>
+    <tr><td>Nombre de joueurs:</td><td>De {{event.min_players}} à {{event.max_players}}</td></tr>
+    <tr><td>Description:</td><td>{{event.description}}</td></tr>
+    <tr><td>Participants:</td><td>
+            <ol>
+                {% for player in event.players.all %}
+                <li>{{player.username}}</li>
+                {% endfor %}
+            </ol>
+    </td></tr>
+</table>
+{% endfor %}
+{% for scenario in content.scenario %}
+<h2 style="page-break-before: always">{{scenario.name}}</h2>
+<table>
+    <tr><td>Ronde:</td><td>{{scenario.ronde}}</td></tr>
+    <tr><td>Nombre de joueurs:</td><td>De {{scenario.min_players}} à {{scenario.max_players}}</td></tr>
+    <tr><td>Système:</td><td>{{scenario.system}}</td></tr>
+    <tr><td>Description:</td><td>{{scenario.description}}</td></tr>
+    <tr><td>MJ:</td><td>{{scenario.author.username}}</td></tr>
+    <tr><td>Participants:</td><td>
+            <ol>
+                {% for player in scenario.players.all %}
+                <li>{{player.username}}</li>
+                {% endfor %}
+            </ol>
+    </td></tr>
+</table>
+{% endfor %}
+{% endfor %}
+</body>
+</html>
+
+

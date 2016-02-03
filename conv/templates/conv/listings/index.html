@@ -1,0 +1,17 @@
+{% extends "conv/base.html" %}
+{% block title %}Export de listes{% endblock %}
+{% block content %}
+<div class=container-fluid>
+    <div class=row>
+        <div class=container-fluid>
+            <h2>Export de listes</h2>
+        </div>
+    </div>
+    <div class=row>
+        <ul>
+            <li><a href="{% url "listing!tables" %}">Liste des tables de jeu par ronde</a></li>
+            <li><a href="{% url "listing!users" %}">Liste des participants</a></li>
+    </div>
+</div>
+{% endblock content %}
+

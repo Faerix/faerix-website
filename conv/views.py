@@ -1,13 +1,16 @@
+import random
+import csv
+
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import get_object_or_404
 from django.template import loader
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 from django.core.mail import send_mail
-import random
 
 from braces.views import LoginRequiredMixin
 
@@ -95,3 +98,30 @@ class SubmitScenarioView(LoginRequiredMixin, CreateView):
                  fail_silently=True
                  )
          return super().form_valid(form)
+
+@staff_member_required
+def listings(request):
+    return render(request, "conv/listings/index.html")
+
+@staff_member_required
+def table_listing(request):
+    tables = {}
+    for i in range(1,4):
+        tables[i] = {
+            "scenario": Scenario.objects.filter(ronde=i, validated=True),
+            "event": Event.objects.filter(ronde=i),
+            }
+
+    return render(request, "conv/listings/tables.html", tables=tables)
+
+@staff_member_required
+def user_listing(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="participants_rrx.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(["Nom", "Prenom", "pseudo", "email", "telephone"])
+    for user in User.objects.all():
+        writer.writerow([user.first_name, user.last_name, user.username, user.email, user.phone])
+
+    return response

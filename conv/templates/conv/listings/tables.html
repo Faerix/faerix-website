@@ -17,7 +17,7 @@ td {
 <table >
     <tr><td>Ronde:</td><td>{{event.ronde}}</td></tr>
     <tr><td>Nombre de joueurs:</td><td>De {{event.min_players}} à {{event.max_players}}</td></tr>
-    <tr><td>Description:</td><td>{{event.description}}</td></tr>
+    <tr><td>Description:</td><td>{{event.description|linebreaks}}</td></tr>
     <tr><td>Participants:</td><td>
             <ol>
                 {% for player in event.players.all %}
@@ -33,7 +33,7 @@ td {
     <tr><td>Ronde:</td><td>{{scenario.ronde}}</td></tr>
     <tr><td>Nombre de joueurs:</td><td>De {{scenario.min_players}} à {{scenario.max_players}}</td></tr>
     <tr><td>Système:</td><td>{{scenario.system}}</td></tr>
-    <tr><td>Description:</td><td>{{scenario.description}}</td></tr>
+    <tr><td>Description:</td><td>{{scenario.description|linebreaks}}</td></tr>
     <tr><td>MJ:</td><td>{{scenario.author.username}}</td></tr>
     <tr><td>Participants:</td><td>
             <ol>

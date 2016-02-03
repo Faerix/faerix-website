@@ -138,6 +138,7 @@ MEDIA_URL = '/assets/media/'
 
 HIJACK_LOGIN_REDIRECT_URL = '/'  # Where admins are redirected to after hijacking a user
 HIJACK_LOGOUT_REDIRECT_URL = '/admin/conv/user/'  # Where admins are redirected to after releasing a user
+HIJACK_DISPLAY_ADMIN_BUTTON = False
 HIJACK_USE_BOOTSTRAP = True
 HIJACK_AUTHORIZE_STAFF = True
 HIJACK_AUTHORIZE_STAFF_TO_HIJACK_STAFF = True

@@ -1,0 +1,30 @@
+{% extends "conv/base.html" %}
+{% block title %}Statistiques{% endblock %}
+{% block content %}
+<div class=container-fluid>
+    <div class=row>
+        <div class=container-fluid>
+            <h2>Statistiques</h2>
+        </div>
+    </div>
+    <div class=row>
+        <table class=table>
+            <tr><td>Inscrits :</td><td>{{ totaux.inscrits }}</td></tr>
+            <tr><td>Scénarios :</td><td>{{ totaux.scenars }}</td></tr>
+            <tr><td>Events :</td><td>{{ totaux.events }}</td></tr>
+        </table>
+    </div>
+    <div class=row>
+        <table class="table">
+            <tr><th>Ronde</th><th>Type</th><th>Inscrits</th><th>Min</th><th>Max</th></tr>
+            {% for ronde, infos in scenars.items %}
+            <tr><td>{{ ronde }}</td><td>scenar</td><td>{{ infos.players_sum }}</td><td>{{ infos.min_capacity }}</td><td>{{ infos.max_capacity }}</td></tr>
+            {% endfor %}
+            {% for ronde, infos in events.items %}
+            <tr><td>{{ ronde }}</td><td>event</td><td>{{ infos.players_sum }}</td><td>{{ infos.min_capacity }}</td><td>{{ infos.max_capacity }}</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock content %}
+

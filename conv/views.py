@@ -11,6 +11,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 from django.core.mail import send_mail
+from django.db.models import F, Sum, Count
 
 from braces.views import LoginRequiredMixin
 
@@ -125,3 +126,16 @@ def user_listing(request):
         writer.writerow([user.first_name, user.last_name, user.username, user.email, user.phone])
 
     return response
+
+@staff_member_required
+def stats(request):
+    scenars = {ronde:Scenario.objects.filter(ronde=ronde).annotate(n_players=Count("players")).aggregate(max_capacity=Sum(F('max_players')), min_capacity=Sum(F("min_players")), players_sum=Sum("n_players")) for ronde in range(1,4)}
+    events = {ronde:Event.objects.filter(ronde=ronde).annotate(n_players=Count("players")).aggregate(max_capacity=Sum(F('max_players')), min_capacity=Sum(F("min_players")), players_sum=Sum("n_players")) for ronde in range(1,4)}
+    totaux = {
+            "inscrits": User.objects.all().count(),
+            "scenars": Scenario.objects.all().count(),
+            "events": Event.objects.all().count(),
+            }
+    return render(request, "conv/stats.html", totaux=totaux, scenars=scenars, events=events)
+
+

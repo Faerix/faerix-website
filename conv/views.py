@@ -20,6 +20,13 @@ from braces.views import LoginRequiredMixin
 from .models import *
 from .forms import *
 
+def not_frozen(view):
+    def new_view(request, *args, **kwargs):
+        if settings.FROZEN:
+            return get_message_view("danger", "Inscriptions gelées", "Il est désormais impossible de modifier ses incriptions : la conv' approche ou est même passée.<br/>Si c'est important, <a href='{% url 'contact' %}'><b>envoyez nous un mail</b></a>.", 403)(request)
+        return view(request, *args, **kwargs)
+    return new_view
+
 def render(request, template, status=200, **context):
     content = loader.get_template(template)
     response = HttpResponse(content.render(context, request))
@@ -67,6 +74,7 @@ def signup(request):
 
 @login_required(redirect_field_name='src')
 @require_POST
+@not_frozen
 def subscribe(request, type, pk, action):
     model = Scenario if type=="scenario" else Event
     object = get_object_or_404(model, pk=pk)

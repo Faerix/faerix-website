@@ -1,0 +1,16 @@
+{% extends "conv/base.html" %}
+
+{% block title %}Spam{% endblock %}
+
+{% block content %}
+<div class="alert alert-warning" role="warning">
+    Pensez bien à cocher la case <strong>Preview</strong> avant de spammer tout le monde.<br/>
+    Cela a pour effet de vous envoyer le mail à <strong>vous et vous seul</strong> pour le prévisualiser.
+</div>
+<p>Cette interface permet d'envoyer un mail à <strong>tous les utilisateurs inscrits sur le site.</strong></p>
+{% if msg.0 != "none" %}
+<div class="alert alert-{{ msg.0 }}" role="{{ msg.0 }}">{{ msg.1 }}</div>
+{% endif %}
+
+{% include "conv/form/form.html" %}
+{% endblock %}

@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^news$', views.news, name='news'),
     url(r'^me$', views.get_message_view("danger", "Mon profil", """Cette fonctionnalité n'est pas encore disponible :("""), name='me'),
     url(r'^stats$', views.stats, name='stats'),
+    url(r'^spam$', views.spam, name='spam'),
     url(r'^listings$', views.listings, name="listing!index"),
     url(r'^listings/tables$', views.table_listing, name="listing!tables"),
     url(r'^listings/users$', views.user_listing, name="listing!users"),

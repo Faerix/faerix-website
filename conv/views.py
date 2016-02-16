@@ -1,4 +1,5 @@
 import random
+import operator
 import csv
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
@@ -10,7 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.http import require_POST
 from django.utils import timezone
-from django.core.mail import send_mail
+from django.core.mail import send_mail, send_mass_mail
+from django.conf import settings
 from django.db.models import F, Sum, Count
 
 from braces.views import LoginRequiredMixin
@@ -137,5 +139,37 @@ def stats(request):
             "events": Event.objects.all().count(),
             }
     return render(request, "conv/stats.html", totaux=totaux, scenars=scenars, events=events)
+
+@staff_member_required
+def spam(request):
+    # (type de message, texte)
+    msg = ("none", "")
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = MassMailForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            sender = "{} <{}>".format(form.cleaned_data["sender_name"], settings.DEFAULT_FROM_EMAIL)
+            message = form.cleaned_data["message"]
+            subject = form.cleaned_data["subject"]
+            targets = (request.user.email,) if form.cleaned_data["preview"] else list(map(operator.itemgetter("email"), User.objects.values("email")))
+            n_success = send_mass_mail(
+                    map(
+                        lambda email: (subject, message, sender, (email, )),
+                        targets
+                    ),
+                    fail_silently=True
+            )
+            if n_success<len(targets):
+                msg = ("danger", "{} messages sur {} n'ont pas pu être envoyés.".format(len(targets)-n_success, len(targets)))
+            else:
+                msg = ("success", "{} messages envoyés.".format(len(targets)))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = MassMailForm()
+
+    return render(request, 'conv/mass_mail.html', form=form, msg=msg)
 
 

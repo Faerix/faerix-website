@@ -1,4 +1,5 @@
 {# context: event, busy #}
+<!-- start event -->
 <div class="panel panel-default" id="event-{{event.pk}}">
     <div class="panel-heading">
         <h3 class="panel-title">{% if request.user in event.players.all %}<span class="label label-success">Je suis inscrit à :</span> {% endif %}{{event.name}}</h3>
@@ -34,3 +35,4 @@
         <li class="list-group-item">{{ event.description|linebreaks }}</li>
     </ul>
 </div>
+<!-- end event -->

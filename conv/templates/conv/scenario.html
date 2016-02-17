@@ -1,4 +1,5 @@
 {# context: scenario, busy #}
+<!-- start scenario -->
 <div class="panel panel-default" id="scenario-{{scenario.pk}}">
     <div class="panel-heading">
         <h3 class="panel-title">{% if request.user in scenario.players.all %}<span class="label label-success">Je suis inscrit à :</span> {% endif %}{{scenario.name}}</h3>
@@ -36,3 +37,4 @@
         <li class="list-group-item">{{ scenario.description|linebreaks }}</li>
     </ul>
 </div>
+<!-- end scenario -->

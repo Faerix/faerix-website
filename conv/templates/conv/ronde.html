@@ -4,15 +4,19 @@
 <div class=container-fluid>
     <div class=row>
         <div class=container-fluid>
-            <h2>Liste des scénarios proposés <a type="button" style="float:right" class="btn btn-primary" href="{% url "submit_scenario" %}">Proposer un scénario</a></h2>
+            <h2>Liste des scénarios proposés {{year}} {{currentConv}}
+            {% if year = '' %}
+                <a type="button" style="float:right" class="btn btn-primary" href="{% url "submit_scenario" %}">Proposer un scénario </a>
+            {% endif %}
+            </h2>
         </div>
     </div>
     <div class=row>
         <div class=container-fluid>
             <ul class="nav nav-tabs nav-justified">
-                <li role="presentation"{% if ronde == 1 %} class="active"{% endif%}><a href='{% url "ronde" 1 %}'>Ronde 1</a></li>
-                <li role="presentation"{% if ronde == 2 %} class="active"{% endif%}><a href='{% url "ronde" 2 %}'>Ronde 2</a></li>
-                <li role="presentation"{% if ronde == 3 %} class="active"{% endif%}><a href='{% url "ronde" 3 %}'>Ronde 3</a></li>
+                <li role="presentation"{% if ronde == 1 %} class="active"{% endif%}><a href='{% url "ronde" year 1 %}'>Ronde 1</a></li>
+                <li role="presentation"{% if ronde == 2 %} class="active"{% endif%}><a href='{% url "ronde" year 2 %}'>Ronde 2</a></li>
+                <li role="presentation"{% if ronde == 3 %} class="active"{% endif%}><a href='{% url "ronde" year 3 %}'>Ronde 3</a></li>
             </ul>
         </div>
     </div>

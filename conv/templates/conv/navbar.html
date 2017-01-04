@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!-- start navbar -->
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -9,16 +10,31 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'index' %}">RRX</a>
+
+
+
+<div id="container" style="white-space:nowrap">
+    <a class="navbar-brand" href="{% url 'index' %}" style="display: inline; margin: 0px; margin-top: 2px; padding-left: 0px; padding-top: 6px; vertical-align: middle;">
+    <div id="image" style="display:inline;">
+        <img src="{% static 'images/faerixlogo.svg'%}" alt="FaëriX" height="36" width="36">
+    </div>
+
+    <div id="texts" style="display:inline; padding-top: 16px; margin-top: 10px;"> 
+        RRX
+    </div>
+    </a>
+</div>
+
+                  
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id=navbar-content>
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href="{% url 'news' %}">Annonces{% if news_count > 0 %} <span class="badge">{{ news_count }}</span>{% endif %}</a></li>
-                    <li><a href="{% url 'programme' %}">Programme</a></li>
-                    <li><a href="{% url 'ronde' 0 %}">Scenarios</a></li>
-                    <li><a href="{% url 'infos' %}">Infos Pratiques</a></li>
+                    <li><a href="{% url 'news' year %}">Annonces{% if news_count > 0 %} <span class="badge">{{ news_count }}</span>{% endif %}</a></li>
+                    <li><a href="{% url 'programme' year %}">Programme</a></li>
+                    <li><a href="{% url 'ronde' year 0 %}">Scenarios</a></li>
+                    <li><a href="{% url 'infos' year %}">Infos Pratiques</a></li>
                     <li><a href="{% url 'contact' %}">Contact</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

@@ -29,16 +29,19 @@ handler400 = views.get_message_view("danger", "400", """<b>400</b> Votre navigat
 
 urlpatterns = [
     url(r'^$', views.get_flat_page_view("Les Rencontres Rôlistes de l'X"), name='index'),
-    url(r'^ronde/(?P<ronde>\d)$', views.ronde, name='ronde'),
-    url(r'^scenarios/submit$', views.not_frozen(views.SubmitScenarioView.as_view()), name='submit_scenario'),
+    url(r'^old/(?P<year>[0-9]{4})/',include('faerix.urls.extra')),
+
+    url(r'^scenarios/submit$', views.not_frozen(views.submitscenario), name='submit_scenario'),
     url(r'^scenarios/submit/done$', views.get_message_view("success", "Propostion enregistrée", """Votre scénario a bien été enregistré. Il sera relu et validé très prochainement."""), name='submit_scenario_done'),
-    url(r'^subscribe/(?P<type>scenario|event)/(?P<pk>\d+)/(?P<action>in|out)$', views.subscribe, name='subscribe'),
+
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^signup/done$', views.get_message_view("success", "Compte créé", """Votre compte a été créé avec succès. Pour l'activer et choisir votre mot de passe, passez par le <a class=alert-link href="{% url 'password_reset' %}">formulaire « mot de passe perdu »</a>"""), name='signup_done'),
-    url(r'^news$', views.news, name='news'),
-    url(r'^me$', views.get_message_view("danger", "Mon profil", """Cette fonctionnalité n'est pas encore disponible :("""), name='me'),
+    url(r'^me$', views.editprofile, name='me'),
+    url(r'^me/opt-out$', views.optout, name="opt-out"),
+    url(r'^me/opt-in$', views.optin, name="opt-in"),
     url(r'^stats$', views.stats, name='stats'),
     url(r'^spam$', views.spam, name='spam'),
+
     url(r'^listings$', views.listings, name="listing!index"),
     url(r'^listings/tables$', views.table_listing, name="listing!tables"),
     url(r'^listings/users$', views.user_listing, name="listing!users"),
@@ -46,6 +49,8 @@ urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^front-edit/', include('front.urls')),
     url(r'^hijack/', include('hijack.urls')),
+
+    url(r'^(?P<year>)',include('faerix.urls.extra')),
 ]
 
 flat_pages = {

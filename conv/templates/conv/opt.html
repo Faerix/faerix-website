@@ -1,0 +1,16 @@
+{% extends "conv/base.html" %}
+
+{% block title %}Éditer mon Profil{% endblock %}
+{% block content %}
+
+<div class='text-centred' style="text-align:center">
+{% if going %}
+<p> Vous venez de vous <b>inscrire</b> à la prochaine Convention </p>
+<a type="button"class="btn btn-primary" href="{% url "opt-out" %}">Mince ! Non, je ne viens plus...</a>
+{% else %}
+<p> Vous venez de vous <b>désinscrire</b> de la prochaine Convention </p>
+<a type="button" class="btn btn-primary" href="{% url "opt-in" %}">Zut ! Bon, finallement je viens</a>
+{% endif %}
+</div>
+
+{% endblock %}

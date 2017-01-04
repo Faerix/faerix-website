@@ -24,6 +24,7 @@ class EventAdmin(admin.ModelAdmin):
     form = forms.CheckingEventForm
 
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Edition)
 admin.site.register(models.Scenario, ScenarioAdmin)
 admin.site.register(models.Event, EventAdmin)
 admin.site.register(models.Sponsor)

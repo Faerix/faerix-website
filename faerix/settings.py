@@ -34,7 +34,7 @@ ALLOWED_HOSTS = ["*"]
 
 AUTH_USER_MODEL = 'conv.User'
 
-LOGIN_REDIRECT_URL = 'news'
+LOGIN_REDIRECT_URL = 'index'
 # Application definition
 
 INSTALLED_APPS = (
@@ -65,7 +65,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'faerix.urls'
+ROOT_URLCONF = 'faerix.urls.main'
 
 TEMPLATES = [
     {

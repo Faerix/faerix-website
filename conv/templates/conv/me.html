@@ -1,0 +1,23 @@
+{% extends "conv/base.html" %}
+
+{% block title %}Éditer mon Profil{% endblock %}
+{% block content %}
+
+<div class='text-centred' style="text-align:center">
+{% if attending %}
+<p> Vous êtes actuellement inscrit comme <b>venant</b> à la prochaine Convention </p>
+<a type="button" class="btn btn-primary" href="{% url "opt-out" %}">Je ne viens plus...</a>
+{% else %}
+<p> Vous êtes actuellement inscrit comme <b>ne venant pas</b> à la prochaine Convention </p>
+<a type="button" class="btn btn-primary" href="{% url "opt-in" %}">Je viens !</a>
+{% endif %}
+</div>
+
+
+<div style="padding: 20px;"></div>
+
+<br>
+
+{% include "conv/form/form.html" %}
+
+{% endblock %}

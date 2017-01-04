@@ -5,10 +5,16 @@
         <h3 class="panel-title">{% if request.user in scenario.players.all %}<span class="label label-success">Je suis inscrit à :</span> {% endif %}{{scenario.name}}</h3>
     </div>
     <ul class="list-group">
-        <li class="list-group-item">Proposé par : <b>{{scenario.author.username}}</b></li>
+        <li class="list-group-item">Proposé par : <b>
+        {% if request.user.is_authenticated and request.user in scenario.players or request.user.is_authenticated and request.user.is_staff %}
+            <a href="mailto:{{scenario.author.email}}" target="_top">{{scenario.author.username}}</a>
+        {% else %}
+            {{scenario.author.username}}
+        {% endif %}
+        </b></li>
         <li class="list-group-item">Système : <b>{{ scenario.system }}</b></li>
         <li class="list-group-item">
-        <b>{{scenario.min_players}} à {{scenario.max_players}}</b> joueurs
+            <b>{{scenario.min_players}} à {{scenario.max_players}}</b> joueurs
             {% if scenario.complet %}
             : <b>complet</b>.
             {% else %}
@@ -16,21 +22,34 @@
             {% endif %}
             {% if request.user in scenario.players.all %}
                 <b>J'en fais partie !</b>
-            <form style="display:inline-block; float: right;" method=post action="{% url "subscribe" "scenario" scenario.pk "out" %}">
+            <form style="display:inline-block; float: right;" method=post action="{% url "subscribe" year "scenario" scenario.pk "out" %}">
                 {% csrf_token %}
-                <button class="btn btn-warning btn-xs" type=submit>Me désinscrire</button>
+                {% if year = '' %}
+                    <button class="btn btn-warning btn-xs" type=submit>Me désinscrire</button>
+                {% endif %}
             </form>
             {% elif not busy and not scenario.complet %}
-            <form class="form-inline" style="display:inline-block; float: right;" method=post action="{% url "subscribe" "scenario" scenario.pk "in" %}">
+            <form class="form-inline" style="display:inline-block; float: right;" method=post action="{% url "subscribe" year "scenario" scenario.pk "in" %}">
                 {% csrf_token %}
-                <button class="btn btn-success btn-xs" type=submit>M'inscrire</button>
+                {% if year = '' %}
+                    <button class="btn btn-success btn-xs" type=submit>M'inscrire</button>
+                {% endif %}
             </form>
             {% endif %}
             {% if scenario.players.all.count > 0 and request.user.is_authenticated %}
-                <br/>Participants :<br/><ol>
-                    {% for player in scenario.players.all %}
-                    <li>{{player.username}}</li>
-                    {% endfor %}
+                {% if request.user = scenario.author or request.user.is_staff %}
+                    <br/><a href="mailto:{{scenario.playermails}}" target="_top">Participants</a>  :<br/>
+                {% else %}
+                    <br/>Participants  :<br/>
+                {% endif %}
+                <ol>
+                {% for player in scenario.players.all %}
+                    {% if request.user = scenario.author or request.user.is_staff %}
+                        <li><a href="mailto:{{player.email}}" target="_top">{{player.username}}</a></li>
+                    {% else %}
+                        <li>{{player.username}}</li>
+                    {% endif %}
+                {% endfor %}
                 </ol>
             {% endif %}
         </li>

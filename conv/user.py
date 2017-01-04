@@ -7,6 +7,8 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.utils.translation import ugettext_lazy as _
 
+from .models import *
+
 # Ci dessous une copie de l'utilisateur "classique" de django
 # avec nom prénom required
 # et une date de dernière visite
@@ -36,6 +38,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_('first name'), max_length=30)
     last_name = models.CharField(_('last name'), max_length=30)
     email = models.EmailField(_('email address'), unique=True, error_messages={'unique': "Un autre utilisateur a déjà cette adresse de courriel."})
+
+    editions = models.ManyToManyField(
+        "conv.Edition",
+        _('Editions this user attendented')
+    )
+
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
@@ -92,7 +100,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     ###### custom methods
 
-    def get_activity_at_ronde(self, ronde):
+    def get_attending(self,_year):
+        return self.editions.filter(year=_year).exists()
+
+
+    def get_activity_at_ronde(self, year, ronde):
         """
         Returns what this user will do during the given ronde, either :
             ("", None)
@@ -105,7 +117,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         type = ""
         object = None
         for attr in ("submitted_scenario", "scenario", "event"):
-            queryset = list(getattr(self, attr+"_set").filter(ronde=ronde))
+            queryset = list(getattr(self, attr+"_set").filter(conv=year).filter(ronde=ronde))
             n += len(queryset)
             if n>1:
                 raise ValidationError("L'utilisateur «{}» participe à plusieurs activités à la ronde {}".format(self, ronde))
@@ -114,8 +126,8 @@ class User(AbstractBaseUser, PermissionsMixin):
                 object = queryset[0]
         return type, object
 
-    def is_busy_at_ronde(self, ronde):
-        return bool(self.get_activity_at_ronde(ronde)[0])
+    def is_busy_at_ronde(self, year, ronde):
+        return bool(self.get_activity_at_ronde(year, ronde)[0])
 
 # Un hack : 
 def get_users(self, email):

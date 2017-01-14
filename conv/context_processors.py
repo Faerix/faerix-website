@@ -1,10 +1,12 @@
-from .models import Sponsor, News
+from .models import Sponsor, News, currentConv
 from django.utils import timezone
 from django.conf import settings
 import random
 
 def inject_sponsors(request):
-    sponsors = list(Sponsor.objects.filter(active=True))
+	print(list(request.GET))
+    year=request.GET.get("year",currentConv())
+    sponsors = list(Sponsor.objects.filter(active=True,conv=year))
     random.shuffle(sponsors)
     return {"sponsor_logos":sponsors}
 

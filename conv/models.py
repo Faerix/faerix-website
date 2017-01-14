@@ -105,6 +105,7 @@ class Sponsor(models.Model):
     url = models.URLField("Site Web", max_length=200)
     logo = models.ImageField("Image à afficher")
     active = models.BooleanField("Affichable", default=True)
+    conv = models.ForeignKey("conv.Edition",related_name="sponsor_conv")
     def __str__(self):
         return self.name
 

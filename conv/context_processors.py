@@ -4,7 +4,7 @@ from django.conf import settings
 import random
 
 def inject_sponsors(request):
-	print(list(request.GET))
+    print(list(request.GET))
     year=request.GET.get("year",currentConv())
     sponsors = list(Sponsor.objects.filter(active=True,conv=year))
     random.shuffle(sponsors)

@@ -3,6 +3,8 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 import django.forms
 
+from faerix.settings import DEBUG
+
 class SignUpForm(django.forms.ModelForm):
     class Meta:
         model = User

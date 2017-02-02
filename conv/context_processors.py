@@ -11,8 +11,8 @@ def inject_sponsors(request):
 	#otherwise request.GET.get("year",currentConv()) would have worked
 		if (path[:5])=="/old/":
 			year = int(path[5:9])
-	finally:
-		True
+	except:
+		pass
 	sponsors = list(Sponsor.objects.filter(active=True,conv=year))
 	random.shuffle(sponsors)
 	return {"sponsor_logos":sponsors,"year":1111111}

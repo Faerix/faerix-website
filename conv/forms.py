@@ -2,6 +2,8 @@ from .models import *
 from django.conf import settings
 from django.core.exceptions import ValidationError
 import django.forms
+from django.core.mail import send_mail
+from faerix.settings import DEBUG
 
 class SignUpForm(django.forms.ModelForm):
     class Meta:

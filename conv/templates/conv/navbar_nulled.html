@@ -1,0 +1,69 @@
+{% load staticfiles %}
+<!-- start navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-content" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+
+
+<div id="container" style="white-space:nowrap">
+    <a class="navbar-brand" href="{% url 'index' %}" style="display: inline; margin: 0px; margin-top: 2px; padding-left: 0px; padding-top: 6px; vertical-align: middle;">
+    <div id="image" style="display:inline;">
+        <img src="{% static 'images/faerixlogo.svg'%}" alt="FaëriX" height="36" width="36">
+    </div>
+
+    <div id="texts" style="display:inline; padding-top: 16px; margin-top: 10px;"> 
+        RRX
+    </div>
+    </a>
+</div>
+
+                  
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id=navbar-content>
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="{% url 'news' '' %}">Annonces{% if news_count > 0 %} <span class="badge">{{ news_count }}</span>{% endif %}</a></li>
+                    <li><a href="{% url 'programme' '' %}">Programme</a></li>
+                    <li><a href="{% url 'ronde' '' 0 %}">Scenarios</a></li>
+                    <li><a href="{% url 'infos' '' %}">Infos Pratiques</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if request.user.is_staff %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url "admin:index"%}">Base de données</a></li>
+                            <li><a href="{% url "listing!index" %}">Export de listes</a></li>
+                            <li><a href="{% url "stats" %}">Statistiques</a></li>
+                            <li><a href="{% url "spam" %}">Spam</a></li>
+                        </ul>
+                        </li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>{{ request.user.username }}</b><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url "password_change"%}">Changer de mot de passe</a></li>
+                            <li><a href="{% url "me" %}">Modifier mon profil</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{% url "logout" %}">Déconnexion</a></li>
+                        </ul>
+                        </li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Se connecter</a></li>
+                    {% endif %}
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+<!-- end navbar -->

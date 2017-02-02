@@ -1,0 +1,45 @@
+{% load staticfiles %}
+{% load hijack_tags %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Le site des Rencontres Rolistes de l'X" />
+    <meta name="keywords" content="Ecole polytechnique, jeu de role, faerix, FaëriX, JDR, RPG, role playing game" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="{% static 'images/favicon.png'%}" type="image/png" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>RRX : {% block title %}les Rencontres Rôlistes de l'X{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="{% static "css/bootstrap.dark.min.css" %}" rel="stylesheet">
+  </head>
+  <body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    {% hijack_notification %}
+    {% include "conv/navbar_nulled.html" %}
+
+    <img src="{% static "images/affiche.jpg" %}" style="position: absolute; width:100%; top: 0; z-index:-1;"/>
+
+    <div class=container-fluid>
+        <div class=row>
+            <div class='col-md-9 col-lg-10'>
+                <div style="color: #FFF; background-color: rgba(17, 17, 17, 0.48); border-radius: 20px; padding: 15px;">
+		<!-- start content -->
+                {% block content %}
+                {% endblock %}
+		<!-- end content -->
+                </div>
+            </div>
+            <div class='col-sm-12 col-md-3 col-lg-2 center-block'>
+                {% include 'conv/logos.html' %}
+            </div>
+        </div>
+    </div>
+
+  </body>
+</html>

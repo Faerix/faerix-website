@@ -50,7 +50,7 @@ def news(request,year=currentConv()):
 
 def urltoyear(year):
     if year=='':
-        return 0
+        return currentConv()
     return int(year)
 
 def yeartourl(year):

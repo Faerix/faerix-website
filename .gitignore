@@ -6,4 +6,3 @@ db.sqlite3
 /venv/
 my.cnf
 secret_key.txt
-*/migrations/

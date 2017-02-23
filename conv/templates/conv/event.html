@@ -14,12 +14,12 @@
             {% endif %}
             {% if request.user in event.players.all %}
                 <b>J'en fais partie !</b>
-            <form style="display:inline-block; float: right;" method=post action="{% url "subscribe" "event" event.pk "out" %}">
+            <form style="display:inline-block; float: right;" method=post action="{% url "subscribe" year "event" event.pk "out" %}">
                 {% csrf_token %}
                 <button class="btn btn-warning btn-xs" type=submit>Me désinscrire</button>
             </form>
             {% elif not busy and not event.complet %}
-            <form class="form-inline" style="display:inline-block; float: right;" method=post action="{% url "subscribe" "event" event.pk "in" %}">
+            <form class="form-inline" style="display:inline-block; float: right;" method=post action="{% url "subscribe" year "event" event.pk "in" %}">
                 {% csrf_token %}
                 <button class="btn btn-success btn-xs" type=submit>M'inscrire</button>
             </form>

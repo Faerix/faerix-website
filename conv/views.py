@@ -30,6 +30,8 @@ def not_frozen(view):
     return new_view
 
 def render(request, template, status=200, **context):
+    if "year" not in context:
+        context["year"] = yeartourl(currentConv())
     content = loader.get_template(template)
     response = HttpResponse(content.render(context, request))
     response.status_code = status
@@ -117,7 +119,7 @@ def editprofile(request):
     else:
         form = ProfileForm(instance=request.user)
 
-    return render(request, 'conv/me.html', form=form, msgs=msgs, attending=request.user.get_attending(currentConv()), year=yeartourl(currentConv()))
+    return render(request, 'conv/me.html', form=form, msgs=msgs, attending=request.user.get_attending(currentConv()))
 
 def submitscenario(request):
     msgs = []

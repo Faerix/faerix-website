@@ -141,11 +141,13 @@ def submitscenario(request):
     return render(request, 'conv/submit_scenario.html', form=form, msgs=msgs)
 
 def optout(request):
-    request.user.editions.add(currentConv())
+    request.user.editions.remove(currentConv())
+    request.user.save()
     return render(request, 'conv/opt.html', going=False)
 
 def optin(request):
-    request.user.editions.remove(currentConv())
+    request.user.editions.add(currentConv())
+    request.user.save()
     return render(request, 'conv/opt.html', going=True)    
 '''   
 

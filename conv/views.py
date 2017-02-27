@@ -117,7 +117,7 @@ def editprofile(request):
     else:
         form = ProfileForm(instance=request.user)
 
-    return render(request, 'conv/me.html', form=form, msgs=msgs, attending=request.user.get_attending(currentConv()))
+    return render(request, 'conv/me.html', form=form, msgs=msgs, attending=request.user.get_attending(currentConv()), year=yeartourl(currentConv()))
 
 def submitscenario(request):
     msgs = []

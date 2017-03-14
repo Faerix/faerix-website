@@ -23,5 +23,4 @@ def inject_news_count(request):
 
 def inject_static_url(request):
 	# for django-front
-	print(list(request))
 	return {"STATIC_URL": settings.STATIC_URL}

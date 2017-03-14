@@ -203,13 +203,14 @@ def user_listing(request,year=currentConv()):
     return response
 
 @staff_member_required
-def stats(request):
-    scenars = {ronde:Scenario.objects.filter(validated=True, ronde=ronde).annotate(n_players=Count("players")).aggregate(max_capacity=Sum(F('max_players')), min_capacity=Sum(F("min_players")), players_sum=Sum("n_players")) for ronde in range(1,4)}
-    events = {ronde:Event.objects.filter(ronde=ronde).annotate(n_players=Count("players")).aggregate(max_capacity=Sum(F('max_players')), min_capacity=Sum(F("min_players")), players_sum=Sum("n_players")) for ronde in range(1,4)}
+def stats(request, year=currentConv()):
+    scenars = {ronde:Scenario.objects.filter(validated=True, ronde=ronde,conv=urltoyear(year)).annotate(n_players=Count("players")).aggregate(max_capacity=Sum(F('max_players')), min_capacity=Sum(F("min_players")), players_sum=Sum("n_players")) for ronde in range(1,4)}
+    events = {ronde:Event.objects.filter(ronde=ronde,conv=urltoyear(year)).annotate(n_players=Count("players")).aggregate(max_capacity=Sum(F('max_players')), min_capacity=Sum(F("min_players")), players_sum=Sum("n_players")) for ronde in range(1,4)}
     totaux = {
-            "inscrits": User.objects.all().count(),
-            "scenars": Scenario.objects.filter(validated=True).count(),
-            "events": Event.objects.all().count(),
+            "enregistres": User.objects.all().count(),
+            "inscrits": User.objects.filter(editions=urltoyear(year)).count(),
+            "scenars": Scenario.objects.filter(validated=True,conv=urltoyear(year)).count(),
+            "events": Event.objects.filter(conv=urltoyear(year)).count(),
             }
     return render(request, "conv/stats.html", totaux=totaux, scenars=scenars, events=events)
 

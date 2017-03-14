@@ -39,7 +39,6 @@ urlpatterns = [
     url(r'^me$', views.editprofile, name='me'),
     url(r'^me/opt-out$', views.optout, name="opt-out"),
     url(r'^me/opt-in$', views.optin, name="opt-in"),
-    url(r'^stats$', views.stats, name='stats'),
     url(r'^spam$', views.spam, name='spam'),
 
     url(r'^admin/', include(admin.site.urls)),

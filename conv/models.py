@@ -43,10 +43,6 @@ class Scenario(models.Model):
     def allowedaccess(self, user=None):
         return True
 
-    #def allowedaccess(self, user):
-    #    print(blop)
-    #    return user.isStaff or (author == user)
-
     def clean(self):
         if not (0<self.min_players<=self.max_players<=settings.MAX_N_PLAYERS):
             raise ValidationError({

@@ -176,28 +176,28 @@ class SubmitScenarioView(LoginRequiredMixin, CreateView):
 '''
 
 @staff_member_required
-def listings(request):
+def listings(request,year=currentConv()):
     return render(request, "conv/listings/index.html")
 
 @staff_member_required
-def table_listing(request):
+def table_listing(request,year=currentConv()):
     tables = {}
     for i in range(1,4):
         tables[i] = {
-            "scenario": Scenario.objects.filter(ronde=i, validated=True),
-            "event": Event.objects.filter(ronde=i),
+            "scenario": Scenario.objects.filter(ronde=i, validated=True, conv=year),
+            "event": Event.objects.filter(ronde=i, conv=year),
             }
 
     return render(request, "conv/listings/tables.html", tables=tables)
 
 @staff_member_required
-def user_listing(request):
+def user_listing(request,year=currentConv()):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="participants_rrx.csv"'
 
     writer = csv.writer(response)
     writer.writerow(["Nom", "Prenom", "pseudo", "email", "telephone"])
-    for user in User.objects.all():
+    for user in User.objects.filter(editions=year):
         writer.writerow([user.first_name, user.last_name, user.username, user.email, user.phone])
 
     return response

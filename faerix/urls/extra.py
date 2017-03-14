@@ -25,6 +25,10 @@ urlpatterns = [
     url(r'^ronde/(?P<ronde>\d)$', views.ronde, name='ronde'),
     url(r'^subscribe/(?P<type>scenario|event)/(?P<pk>\d+)/(?P<action>in|out)$', views.subscribe, name='subscribe'),
     url(r'^news$', views.news, name='news'),
+
+    url(r'^listings$', views.listings, name="listing!index"),
+    url(r'^listings/tables$', views.table_listing, name="listing!tables"),
+    url(r'^listings/users$', views.user_listing, name="listing!users"),
 ]
 
 

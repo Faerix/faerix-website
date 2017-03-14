@@ -184,8 +184,8 @@ def table_listing(request,year=currentConv()):
     tables = {}
     for i in range(1,4):
         tables[i] = {
-            "scenario": Scenario.objects.filter(ronde=i, validated=True, conv=year),
-            "event": Event.objects.filter(ronde=i, conv=year),
+            "scenario": Scenario.objects.filter(ronde=i, validated=True, conv=urltoyear(year)),
+            "event": Event.objects.filter(ronde=i, conv=urltoyear(year)),
             }
 
     return render(request, "conv/listings/tables.html", tables=tables)
@@ -197,7 +197,7 @@ def user_listing(request,year=currentConv()):
 
     writer = csv.writer(response)
     writer.writerow(["Nom", "Prenom", "pseudo", "email", "telephone"])
-    for user in User.objects.filter(editions=year):
+    for user in User.objects.filter(editions=urltoyear(year)):
         writer.writerow([user.first_name, user.last_name, user.username, user.email, user.phone])
 
     return response

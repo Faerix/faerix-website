@@ -43,7 +43,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{% url "admin:index"%}">Base de données</a></li>
-                            <li><a href="{% url "listing!index" %}">Export de listes</a></li>
+                            <li><a href="{% url "listing!index" year %}">Export de listes</a></li>
                             <li><a href="{% url "stats" %}">Statistiques</a></li>
                             <li><a href="{% url "spam" %}">Spam</a></li>
                         </ul>

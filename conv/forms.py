@@ -105,7 +105,7 @@ class ScenarioForm(django.forms.Form):
         if not(DEBUG):
             send_mail(
                 "Scenario à valider",
-                "Un internaute a soumis un scénario intitulé « {} ».\n Rendez vous sur l'interface d'administration : http://www.faerix.net/admin/conv/scenario/.\nCe mail est automatique.".format(request),
+                "Un internaute a soumis un scénario intitulé « {name!s} ».\n Rendez vous sur l'interface d'administration : http://www.faerix.net/admin/conv/scenario/.\nCe mail est automatique.".format(request),
                 "",
                 list(map(lambda u: u.email, User.objects.filter(is_staff=True))),
                 fail_silently=True

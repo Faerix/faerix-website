@@ -1,0 +1,16 @@
+{% extends "conv/base.html" %}
+{% block title %}Export de listes{% endblock %}
+{% block content %}
+<div class=container-fluid>
+    <div class=row>
+        <div class=container-fluid>
+            <h2>Commandes administrateur</h2>
+        </div>
+    </div>
+    <div class=row>
+        <ul>
+            <li><a href="{% url "command!autoregistration" %}">Inscrit tous ceux qui participent à un scénario ou évenement à la conv</a></li>
+    </div>
+</div>
+{% endblock content %}
+

@@ -40,6 +40,8 @@ urlpatterns = [
     url(r'^me/opt-out$', views.optout, name="opt-out"),
     url(r'^me/opt-in$', views.optin, name="opt-in"),
     url(r'^spam$', views.spam, name='spam'),
+    url(r'^command/$', views.command, name='command'),
+    url(r'^command/auto-registration/$', views.command_autoregistration, name='command!autoregistration'),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('django.contrib.auth.urls')),

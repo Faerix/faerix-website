@@ -16,7 +16,6 @@ from django.conf import settings
 from django.db.models import F, Sum, Count
 
 from braces.views import LoginRequiredMixin
-
 from faerix.settings import DEBUG
 
 from .models import *
@@ -174,6 +173,32 @@ class SubmitScenarioView(LoginRequiredMixin, CreateView):
          return super().form_valid(form)
          
 '''
+
+@staff_member_required
+def command(request):
+    return render(request, "conv/command.html")
+
+@staff_member_required
+def command_autoregistration(request):
+    conv = currentConv()
+    print("Start")
+    for scenario in Scenario.objects.filter(validated=True, conv=conv):
+        print("Scenario")
+        for user in scenario.players.exclude(editions=conv):
+            print("User")
+            user.editions.add(conv)
+            user.save()
+        if not(conv in scenario.author.editions.all()):
+            print("Author")
+            scenario.author.editions.add(conv)
+            scenario.author.save()
+    for event in Event.objects.filter(conv=conv):
+        print("Event")
+        for user in event.players.exclude(editions=conv):
+            user.editions.add(conv)
+            user.save()
+    print("Done")
+    return HttpResponseRedirect(reverse("command"))
 
 @staff_member_required
 def listings(request,year=currentConv()):

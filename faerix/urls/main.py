@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^stats$', views.stats, name='stats'),
     url(r'^spam$', views.spam, name='spam'),
 
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^front-edit/', include('front.urls')),
     url(r'^hijack/', include('hijack.urls')),

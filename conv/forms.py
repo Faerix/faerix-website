@@ -95,7 +95,7 @@ class ScenarioForm(django.forms.Form):
         )
         scenario.save()
 
-    def save(self,request):
+    def save(self,request):   
         if(self.cleaned_data['ronde1']):
             self.save_ronde(request,1)
         if(self.cleaned_data['ronde2']):
@@ -105,7 +105,7 @@ class ScenarioForm(django.forms.Form):
         if not(DEBUG):
             send_mail(
                 "Scenario à valider",
-                "Un internaute a soumis un scénario intitulé « {name!s} ».\n Rendez vous sur l'interface d'administration : http://www.faerix.net/admin/conv/scenario/.\nCe mail est automatique.".format(request),
+                "Un internaute a soumis un scénario intitulé « {name!s} ».\n Rendez vous sur l'interface d'administration : http://www.faerix.net/admin/conv/scenario/.\nCe mail est automatique.".format(name=request.POST["name"]),
                 "",
                 list(map(lambda u: u.email, User.objects.filter(is_staff=True))),
                 fail_silently=True

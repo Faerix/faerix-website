@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^listings$', views.listings, name="listing!index"),
     url(r'^listings/tables$', views.table_listing, name="listing!tables"),
     url(r'^listings/users$', views.user_listing, name="listing!users"),
+    url(r'^listings/cards$', views.cards_listing, name="listing!cards"),
 ]
 
 

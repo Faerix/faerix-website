@@ -228,6 +228,10 @@ def user_listing(request,year=currentConv()):
     return response
 
 @staff_member_required
+def cards_listing(request,year=currentConv()):
+    return render(request, "conv/listings/cards.html", users=User.objects.filter(editions=urltoyear(year)))
+
+@staff_member_required
 def stats(request, year=currentConv()):
     scenars = {ronde:Scenario.objects.filter(validated=True, ronde=ronde,conv=urltoyear(year)).annotate(n_players=Count("players")).aggregate(max_capacity=Sum(F('max_players')), min_capacity=Sum(F("min_players")), players_sum=Sum("n_players")) for ronde in range(1,4)}
     events = {ronde:Event.objects.filter(ronde=ronde,conv=urltoyear(year)).annotate(n_players=Count("players")).aggregate(max_capacity=Sum(F('max_players')), min_capacity=Sum(F("min_players")), players_sum=Sum("n_players")) for ronde in range(1,4)}

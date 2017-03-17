@@ -104,6 +104,7 @@ def subscribe(request, year, type, pk, action):
 
     return render(request, 'conv/signup.html', form=form, year=yeartourl(year))
 
+@login_required(redirect_field_name='src')
 def editprofile(request):
     msgs = []
     # if this is a POST request we need to process the form data
@@ -139,11 +140,15 @@ def submitscenario(request):
 
     return render(request, 'conv/submit_scenario.html', form=form, msgs=msgs)
 
+@login_required(redirect_field_name='src')
+@not_frozen
 def optout(request):
     request.user.editions.remove(currentConv())
     request.user.save()
     return render(request, 'conv/opt.html', going=False)
 
+@login_required(redirect_field_name='src')
+@not_frozen
 def optin(request):
     request.user.editions.add(currentConv())
     request.user.save()

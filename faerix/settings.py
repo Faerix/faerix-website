@@ -159,4 +159,4 @@ MAX_N_PLAYERS = 99
 DEFAULT_FROM_EMAIL = "conv@faerix.net"
 SERVER_EMAIL = "webmaster@faerix.net" # redirige sur info@faerix.polytechnique.org
 ADMINS = [("Webmaster Faërix", "webmaster@faerix.net")]
-FROZEN = True # empêcher les gens de modifier leurs inscriptions
+FROZEN = False # empêcher les gens de modifier leurs inscriptions

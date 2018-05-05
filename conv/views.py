@@ -261,7 +261,15 @@ def spam(request):
             sender = "{} <{}>".format(form.cleaned_data["sender_name"], settings.DEFAULT_FROM_EMAIL)
             message = form.cleaned_data["message"]
             subject = form.cleaned_data["subject"]
-            targets = (request.user.email,) if form.cleaned_data["preview"] else list(map(operator.itemgetter("email"), User.objects.values("email")))
+            targets = (request.user.email,)
+            if not(form.cleaned_data["preview"]):
+                to = form.cleaned_data["to"]
+                mails = None
+                if(len(to)==0):
+                    mails = User.objects.all()
+                else:
+                    mails = User.objects.filter(editions__in=to).distinct()
+                targets = list(map(operator.itemgetter("email"), mails.values("email")))
             n_success = send_mass_mail(
                     map(
                         lambda email: (subject, message, sender, (email, )),

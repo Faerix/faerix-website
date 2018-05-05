@@ -128,6 +128,7 @@ class CheckingScenarioForm(django.forms.ModelForm):
 class MassMailForm(django.forms.Form):
     sender_name = django.forms.CharField(max_length=100, initial="RRX", label="Nom apparent de l'auteur ({})".format(settings.DEFAULT_FROM_EMAIL))
     subject = django.forms.CharField(max_length=100, label="Sujet")
+    to = django.forms.ModelMultipleChoiceField(queryset=Edition.objects.all(),required = False, label="À (Aucune édition séléctionnée = Tous les inscrits sur le site ; appuyez sur CTRL pour séléctionner plusieurs éditions)")
     preview = django.forms.BooleanField(required=False, initial=True, label="Preview (n'envoyer le mail qu'à vous pour une dernière relecture)")
     message = django.forms.CharField(widget=django.forms.Textarea, label="Texte")
 

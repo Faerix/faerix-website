@@ -41,7 +41,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     editions = models.ManyToManyField(
         "conv.Edition",
-        _('Editions this user attendented')
+        _('Editions this user attendented'),
+        blank = True
     )
 
     is_staff = models.BooleanField(

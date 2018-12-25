@@ -70,7 +70,7 @@ class Event(models.Model):
     description = models.TextField("Description", max_length=10000)
     conv = models.ForeignKey("conv.Edition",related_name="even_conv")
     players = models.ManyToManyField("conv.User", blank=True)
-    ronde = models.IntegerField("Ronde", choices=((1, "1 : Samedi 14h−20h"), (2, "2 : Samedi à partir de 20h"), (3, "3 : Dimanche 10h-16h")))
+    ronde = models.IntegerField("Ronde", choices=((1, "1 : Samedi 14h−20h"), (2, "2 : Samedi à partir de 20h"), (3, "3 : Dimanche 10h-16h"), (4, "4 : Inter-ronde")))
     
     @property
     def complet(self):

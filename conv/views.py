@@ -74,6 +74,12 @@ def ronde(request, year=currentConv(), ronde=0):
         events = events.exclude(pk=activity.pk)
     return render(request, "conv/ronde.html", ronde=ronde, scenarios=scenarios, events=events, busy=bool(type), type=type, activity=activity, year=yeartourl(year))
 
+def conference(request, year=currentConv()):
+    ronde = 4
+    year=urltoyear(year)
+    events = Event.objects.filter(ronde=ronde, conv=year)
+    return render(request, "conv/conference.html", ronde=ronde, events=events, year=yeartourl(year))
+
 def signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -239,7 +245,7 @@ def cards_listing(request,year=currentConv()):
 @staff_member_required
 def stats(request, year=currentConv()):
     scenars = {ronde:Scenario.objects.filter(validated=True, ronde=ronde,conv=urltoyear(year)).annotate(n_players=Count("players")).aggregate(max_capacity=Sum(F('max_players')), min_capacity=Sum(F("min_players")), players_sum=Sum("n_players")) for ronde in range(1,4)}
-    events = {ronde:Event.objects.filter(ronde=ronde,conv=urltoyear(year)).annotate(n_players=Count("players")).aggregate(max_capacity=Sum(F('max_players')), min_capacity=Sum(F("min_players")), players_sum=Sum("n_players")) for ronde in range(1,4)}
+    events = {ronde:Event.objects.filter(ronde=ronde,conv=urltoyear(year)).annotate(n_players=Count("players")).aggregate(max_capacity=Sum(F('max_players')), min_capacity=Sum(F("min_players")), players_sum=Sum("n_players")) for ronde in range(1,5)}
     totaux = {
             "enregistres": User.objects.all().count(),
             "inscrits": User.objects.filter(editions=urltoyear(year)).count(),

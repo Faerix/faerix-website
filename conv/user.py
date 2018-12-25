@@ -117,6 +117,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         n = 0
         type = ""
         object = None
+
+        # During round 4 user can participate un multiple activities
+        if ronde == 4:
+            return type, object
+
         for attr in ("submitted_scenario", "scenario", "event"):
             queryset = list(getattr(self, attr+"_set").filter(conv=year).filter(ronde=ronde))
             n += len(queryset)

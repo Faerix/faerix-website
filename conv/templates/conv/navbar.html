@@ -34,6 +34,7 @@
                     <li><a href="{% url 'news' year %}">Annonces{% if news_count > 0 %} <span class="badge">{{ news_count }}</span>{% endif %}</a></li>
                     <li><a href="{% url 'programme' year %}">Programme</a></li>
                     <li><a href="{% url 'ronde' year 0 %}">Scenarios</a></li>
+                    <li><a href="{% url 'conference' year %}">Conferences</a></li>
                     <li><a href="{% url 'infos' year %}">Infos Pratiques</a></li>
                     <li><a href="{% url 'contact' %}">Contact</a></li>
                 </ul>

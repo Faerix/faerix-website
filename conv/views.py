@@ -106,7 +106,10 @@ def subscribe(request, year, type, pk, action):
         object.players.add(request.user)
     else:
         object.players.remove(request.user)
-    return HttpResponseRedirect(reverse("ronde", args=(object.conv,object.ronde)))
+    if object.ronde == 4:
+        return HttpResponseRedirect(reverse("conference", args=(object.conv,)))
+    else:
+        return HttpResponseRedirect(reverse("ronde", args=(object.conv,object.ronde)))
 
     return render(request, 'conv/signup.html', form=form, year=yeartourl(year))
 
